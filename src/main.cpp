@@ -45,9 +45,11 @@ void setup()
     }
     Serial.printf("Touch system status: %s\n", touch_detected ? "ENABLED" : "DISABLED");
 
+    /*
     Serial.println("\n*** Please touch the screen now for manual test ***");
     delay(2000);
     manual_touch_test();
+    */
 
     lv_init();
 
@@ -106,6 +108,7 @@ void setup()
     lv_label_set_text(title, "GT911 Touch Demo");
     lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 30);
     lv_obj_set_style_text_color(title, lv_color_white(), 0);
+    lv_obj_set_style_text_font(title, &lv_font_montserrat_30, LV_PART_MAIN);  // e.g., for your percent label
     Serial.println("✅ Title label created");
 
     lv_obj_t *slider = lv_slider_create(scr);
