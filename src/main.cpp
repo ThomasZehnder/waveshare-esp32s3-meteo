@@ -105,7 +105,7 @@ void setup()
     Serial.println("✅ Screen background set to black");
 
     lv_obj_t *title = lv_label_create(scr);
-    lv_label_set_text(title, "GT911 Touch Demo");
+    lv_label_set_text(title, "WAVESHARE_ESP32_S3_TOUCH_LCD_4_3 Demo");
     lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 30);
     lv_obj_set_style_text_color(title, lv_color_white(), 0);
     lv_obj_set_style_text_font(title, &lv_font_montserrat_30, LV_PART_MAIN);  // e.g., for your percent label
@@ -135,6 +135,13 @@ void setup()
     lv_obj_center(btn_label);
     lv_obj_add_event_cb(btn, [](lv_event_t * e){ Serial.println("🎉 Button clicked!"); }, LV_EVENT_CLICKED, NULL);
     Serial.println("✅ Button created");
+
+    //add spinner
+    lv_obj_t *spinner = lv_spinner_create(scr, 1000, 60);
+    lv_obj_set_style_bg_color(spinner, lv_color_black(), LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(spinner, LV_OPA_COVER, LV_PART_MAIN);
+    lv_obj_align(spinner, LV_ALIGN_TOP_RIGHT, 0, 0);
+    Serial.println("✅ Spinner created");
 
     lv_refr_now(NULL);
     Serial.println("✅ Screen refresh forced");
