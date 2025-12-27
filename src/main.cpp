@@ -138,16 +138,15 @@ void setup()
 
     //add spinner
     lv_obj_t *spinner = lv_spinner_create(scr, 1000, 60);
-    lv_obj_set_style_bg_color(spinner, lv_color_black(), LV_PART_MAIN);
-    lv_obj_set_style_bg_opa(spinner, LV_OPA_COVER, LV_PART_MAIN);
-    lv_obj_align(spinner, LV_ALIGN_TOP_RIGHT, 0, 0);
+    lv_color_t spinner_blue = lv_color_hex(0x1E90FF);  // DodgerBlue
+    lv_obj_set_style_arc_color(spinner, spinner_blue, LV_PART_INDICATOR);
+    lv_obj_set_style_arc_color(spinner, lv_color_hex(0xFF0000), LV_PART_MAIN);
+    lv_obj_align(spinner, LV_ALIGN_TOP_RIGHT, 0, 60);
     Serial.println("✅ Spinner created");
 
     lv_refr_now(NULL);
     Serial.println("✅ Screen refresh forced");
-    Serial.println("LVGL setup complete with GT911 touch support!");
-    Serial.println("🎯 You should now see: Black background, title, slider, red percentage, and button");
-    Serial.println("👆 Touch the screen to test interaction!");
+    Serial.println("Setup complete!");
 }
 
 void loop()
