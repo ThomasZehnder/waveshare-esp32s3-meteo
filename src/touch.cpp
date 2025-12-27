@@ -130,6 +130,7 @@ void touchpad_read(lv_indev_drv_t *drv, lv_indev_data_t *data)
     static uint32_t last_report_time = 0;
     static uint8_t last_status = 0x80;
 
+    /*
     read_counter++;
 
     // Debug LVGL touch reads every 1000 calls (about 5 seconds at 200Hz)
@@ -138,6 +139,7 @@ void touchpad_read(lv_indev_drv_t *drv, lv_indev_data_t *data)
         read_counter = 0;
         last_report_time = millis();
     }
+    */
 
     // Throttle GT911 reads to prevent I2C timing issues (max 20Hz = 50ms interval)
     static uint32_t last_gt911_read = 0;
