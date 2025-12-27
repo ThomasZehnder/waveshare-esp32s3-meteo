@@ -1,0 +1,15 @@
+# Board
+
+Chip is ESP32-S3 (QFN56) (revision v0.2)
+Features: WiFi, BLE, Embedded PSRAM 8MB (AP_3v3)
+Crystal is 40MHz
+MAC: e4:b0:63:b6:40:8c
+
+* @file   BOARD_ESP32_S3_TOUCH_LCD_4_3_B.h
+* @brief  Configuration file for Waveshare ESP32-S3-Touch-LCD-4.3-B
+* @author Waveshare@H-sw123
+* @link   <https://www.waveshare.com/esp32-s3-touch-lcd-4.3B.htm>
+
+## Specifications
+
+<https://spotpear.com/wiki/ESP32-S3R8-4.3inch-LCD-Captive-TouchScreen-Display-LVGL-800x480.html#VScode>
