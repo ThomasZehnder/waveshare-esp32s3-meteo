@@ -7,7 +7,7 @@
  */
 
 #include "ui.h"
-#include "ui_i18n.h" // Assuming i18n is used
+// #include "ui_i18n.h" // Assuming i18n is used
 #include <string.h>
 #include <Arduino.h>
 
@@ -52,10 +52,7 @@ int click_count = 0;
 /////////////////////
 // SCREEN DEFINITIONS
 /////////////////////
-lv_obj_t *ui_Main_Screen;
-lv_obj_t *ui_Screen_1;
-lv_obj_t *ui_Screen_2;
-lv_obj_t *ui_Service_Screen;
+ui_screen_def_t UI_Screens;
 
 /////////////////////
 // WIDGET DEFINITIONS
@@ -127,18 +124,18 @@ void ui_create_main_elements(lv_obj_t *parent)
 /////////////////////
 void ui_Main_screen_init(void)
 {
-    ui_Main_Screen = lv_obj_create(NULL);
+    UI_Screens.Main_Screen = lv_obj_create(NULL);
 
-    ui_create_main_elements(ui_Main_Screen);
+    ui_create_main_elements(UI_Screens.Main_Screen);
 
     // Create a label on the screen
-    lv_obj_t *label = lv_label_create(ui_Main_Screen);
+    lv_obj_t *label = lv_label_create(UI_Screens.Main_Screen);
     lv_label_set_text(label, "Hello, ESP32-S3!");
     lv_obj_set_style_text_color(label, lv_color_red(), 0);
     lv_obj_align(label, LV_ALIGN_TOP_LEFT, 10, 10);
 
     // Create single button in center of active screen
-    ui_button0 = lv_btn_create(ui_Main_Screen);
+    ui_button0 = lv_btn_create(UI_Screens.Main_Screen);
     lv_obj_align(ui_button0, LV_ALIGN_CENTER, 0, 0);
 
     // Add click event listener to button
@@ -151,7 +148,7 @@ void ui_Main_screen_init(void)
     lv_obj_center(btn_label);
 
     // Create counter display label below button
-    counter_label = lv_label_create(ui_Main_Screen);
+    counter_label = lv_label_create(UI_Screens.Main_Screen);
     lv_label_set_text(counter_label, "Count: 0");
     lv_obj_set_style_text_color(counter_label, lv_color_white(), 0);
     // Increase font size by using next available larger font
@@ -159,7 +156,7 @@ void ui_Main_screen_init(void)
     lv_obj_align(counter_label, LV_ALIGN_CENTER, 0, 60);
 
     // add spinner
-    lv_obj_t *spinner = lv_spinner_create(ui_Main_Screen, 1000, 60);
+    lv_obj_t *spinner = lv_spinner_create(UI_Screens.Main_Screen, 1000, 60);
     lv_color_t spinner_blue = lv_color_hex(0x1E90FF); // DodgerBlue
     lv_obj_set_style_arc_color(spinner, spinner_blue, LV_PART_INDICATOR);
     lv_obj_set_style_arc_color(spinner, lv_color_hex(0xFF0000), LV_PART_MAIN);
@@ -169,28 +166,28 @@ void ui_Main_screen_init(void)
 
 void ui_Screen_1_screen_init(void)
 {
-    ui_Screen_1 = lv_obj_create(NULL);
-    ui_create_main_elements(ui_Screen_1);
+    UI_Screens.Screen_1 = lv_obj_create(NULL);
+    ui_create_main_elements(UI_Screens.Screen_1);
 
-    ui_spinbox1 = lv_spinbox_create(ui_Screen_1);
+    ui_spinbox1 = lv_spinbox_create(UI_Screens.Screen_1);
     lv_obj_set_size(ui_spinbox1, 240, 114);
     lv_obj_align(ui_spinbox1, LV_ALIGN_TOP_LEFT, 166, 136);
     lv_spinbox_set_range(ui_spinbox1, -20, 50);
     lv_spinbox_set_value(ui_spinbox1, 22);
-    ui_status2 = lv_label_create(ui_Screen_1);
+    ui_status2 = lv_label_create(UI_Screens.Screen_1);
     lv_label_set_text(ui_status2, LV_SYMBOL_WIFI);
     lv_obj_set_size(ui_status2, 29, 52);
     lv_obj_align(ui_status2, LV_ALIGN_TOP_LEFT, 270, 300);
-    ui_tabview4 = lv_tabview_create(ui_Screen_1, LV_DIR_TOP, 50);
+    ui_tabview4 = lv_tabview_create(UI_Screens.Screen_1, LV_DIR_TOP, 50);
     lv_obj_set_size(ui_tabview4, 800, 40);
     lv_obj_align(ui_tabview4, LV_ALIGN_TOP_LEFT, 0, 0);
     lv_obj_t *ui_tabview4_Tab_1 = lv_tabview_add_tab(ui_tabview4, "Tab 1");
 
-    ui_spinner4 = lv_spinner_create(ui_Screen_1, 1000, 60);
+    ui_spinner4 = lv_spinner_create(UI_Screens.Screen_1, 1000, 60);
     lv_obj_set_size(ui_spinner4, 100, 50);
     lv_obj_align(ui_spinner4, LV_ALIGN_TOP_LEFT, 390, 330);
 
-    ui_label8 = lv_label_create(ui_Screen_1);
+    ui_label8 = lv_label_create(UI_Screens.Screen_1);
     lv_label_set_text(ui_label8, "Screen 1");
     lv_obj_set_width(ui_label8, 226);
     lv_obj_set_height(ui_label8, 53);
@@ -199,20 +196,20 @@ void ui_Screen_1_screen_init(void)
     lv_obj_set_style_text_color(ui_label8, lv_color_white(), 0);
     lv_obj_set_style_text_font(ui_label8, &lv_font_montserrat_30, DEFAULT_SELECTOR);
 
-    slider = lv_slider_create(ui_Screen_1);
+    slider = lv_slider_create(UI_Screens.Screen_1);
     lv_obj_set_width(slider, 600);
     lv_obj_align(slider, LV_ALIGN_CENTER, 0, 80);
     lv_slider_set_range(slider, 0, 100);
     lv_slider_set_value(slider, 50, LV_ANIM_OFF);
     lv_obj_add_event_cb(slider, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
 
-    value_label = lv_label_create(ui_Screen_1);
+    value_label = lv_label_create(UI_Screens.Screen_1);
     lv_label_set_text_fmt(value_label, "%d%%", lv_slider_get_value(slider));
     lv_obj_set_style_text_font(value_label, &lv_font_montserrat_30, 0);
     lv_obj_set_style_text_color(value_label, lv_color_hex(0xFF0000), 0);
     lv_obj_align(value_label, LV_ALIGN_CENTER, 0, 150);
 
-    lv_obj_t *btn = lv_btn_create(ui_Screen_1);
+    lv_obj_t *btn = lv_btn_create(UI_Screens.Screen_1);
     lv_obj_set_size(btn, 200, 50);
     lv_obj_align(btn, LV_ALIGN_BOTTOM_MID, 0, -30);
     lv_obj_t *btn_label = lv_label_create(btn);
@@ -225,16 +222,16 @@ void ui_Screen_1_screen_init(void)
 
 void ui_Screen_2_screen_init(void)
 {
-    ui_Screen_2 = lv_obj_create(NULL);
-    ui_create_main_elements(ui_Screen_2);
+    UI_Screens.Screen_2 = lv_obj_create(NULL);
+    ui_create_main_elements(UI_Screens.Screen_2);
 
-    ui_inputfield6 = lv_textarea_create(ui_Screen_2);
+    ui_inputfield6 = lv_textarea_create(UI_Screens.Screen_2);
     lv_obj_set_size(ui_inputfield6, 235, 50);
     lv_obj_align(ui_inputfield6, LV_ALIGN_TOP_LEFT, 181, 55);
     lv_textarea_set_one_line(ui_inputfield6, true);
     lv_textarea_set_text(ui_inputfield6, "InputField");
 
-    ui_label9 = lv_label_create(ui_Screen_2);
+    ui_label9 = lv_label_create(UI_Screens.Screen_2);
     lv_label_set_text(ui_label9, "Screen 2");
     lv_obj_set_width(ui_label9, 430);
     lv_obj_set_height(ui_label9, 50);
@@ -244,15 +241,8 @@ void ui_Screen_2_screen_init(void)
     lv_obj_set_style_text_font(ui_label9, &lv_font_montserrat_30, DEFAULT_SELECTOR);
 }
 
-void ui_Service_Screen_init(void)
-{
-    ui_Service_Screen = lv_obj_create(NULL);
-    ui_create_main_elements(ui_Service_Screen);
-
-    lv_obj_t *screen_service_ui_label = lv_label_create(ui_Service_Screen);
-    lv_label_set_text(screen_service_ui_label, "Service Screen ...");
-    lv_obj_align(screen_service_ui_label, LV_ALIGN_TOP_LEFT, 0, 0);
-}
+// forward declaration
+void ui_Service_Screen_init(void);
 
 /////////////////////
 // MAIN UI FUNCTION
@@ -264,5 +254,5 @@ void ui_init(void)
     ui_Screen_1_screen_init();
     ui_Screen_2_screen_init();
     ui_Service_Screen_init();
-    lv_scr_load(ui_Main_Screen);
+    lv_scr_load(UI_Screens.Main_Screen);
 }
