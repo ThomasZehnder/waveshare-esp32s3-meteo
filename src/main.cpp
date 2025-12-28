@@ -1,10 +1,10 @@
 #include <Arduino.h>
 #include <lvgl.h>
 #include <Wire.h>
-#include "diagnostics.h"
-#include "touch.h"
-#include "lcd.h"
-#include "BOARD_WAVESHARE_ESP32_S3_TOUCH_LCD_4_3.h"
+#include "board/diagnostics.h"
+#include "board/touch.h"
+#include "board/lcd.h"
+#include "board/BOARD_WAVESHARE_ESP32_S3_TOUCH_LCD_4_3.h"
 
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t *buf1 = nullptr;
