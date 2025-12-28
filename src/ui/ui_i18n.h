@@ -1,1 +1,1 @@
-#warning "no translation file found for the selected language"
+//#warning "no translation file used"

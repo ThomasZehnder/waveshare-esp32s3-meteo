@@ -18,7 +18,7 @@ void ui_styles_init(void)
 {
     // Disable all animations globally
     lv_disp_t *disp = lv_disp_get_default();
-    lv_disp_set_theme(disp, lv_theme_default_init(disp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT));
+    //lv_disp_set_theme(disp, lv_theme_default_init(disp, lv_palette_main(LV_PALETTE_GREY), lv_palette_main(LV_PALETTE_BLUE), true, &lv_font_montserrat_20));
 }
 
 /////////////////////
@@ -226,11 +226,7 @@ void ui_Screen_2_screen_init(void)
     lv_obj_align(ui_inputfield6, LV_ALIGN_TOP_LEFT, 181, 55);
     lv_textarea_set_one_line(ui_inputfield6, true);
     lv_textarea_set_text(ui_inputfield6, "InputField");
-    lv_obj_set_style_bg_color(ui_inputfield6, lv_color_hex(0x374151), DEFAULT_SELECTOR);
-    lv_obj_set_style_bg_opa(ui_inputfield6, 255, DEFAULT_SELECTOR);
-    lv_obj_set_style_text_color(ui_inputfield6, lv_color_hex(0xe5e7eb), DEFAULT_SELECTOR);
-    lv_obj_set_style_border_color(ui_inputfield6, lv_color_hex(0x3b82f6), DEFAULT_SELECTOR);
-    lv_obj_set_style_border_width(ui_inputfield6, 1, DEFAULT_SELECTOR);
+
     ui_label9 = lv_label_create(ui_Screen_2);
     lv_label_set_text(ui_label9, "Screen 2");
     lv_obj_set_width(ui_label9, 430);
@@ -246,14 +242,10 @@ void ui_Service_Screen_init(void)
     ui_Service_Screen = lv_obj_create(NULL);
     ui_create_main_elements(ui_Service_Screen);
 
-    lv_obj_t *ui_label9 = lv_label_create(ui_Service_Screen);
-    lv_label_set_text(ui_label9, "Service Screen");
-    lv_obj_set_width(ui_label9, 430);
-    lv_obj_set_height(ui_label9, 50);
-    lv_obj_set_x(ui_label9, 19);
-    lv_obj_set_y(ui_label9, 5);
-    lv_obj_set_style_text_color(ui_label9, lv_color_hex(0xe5e7eb), DEFAULT_SELECTOR);
-    lv_obj_set_style_text_font(ui_label9, &lv_font_montserrat_30, DEFAULT_SELECTOR);
+    lv_obj_t *screen_service_ui_label = lv_label_create(ui_Service_Screen);
+    lv_label_set_text(screen_service_ui_label, "Service Screen ...");
+    lv_obj_align(screen_service_ui_label, LV_ALIGN_TOP_LEFT, 0, 0);
+
 }
 
 /////////////////////
