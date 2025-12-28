@@ -1,0 +1,371 @@
+{
+  "screens": [
+    {
+      "id": "screen-7186c6cd-e833-4fa0-912f-5135facfb040",
+      "name": "Screen 1",
+      "widgets": [
+        {
+          "id": "widget-7838c600-9a6c-4038-8d57-2fa1a0de553f",
+          "type": "Spinbox",
+          "top": 136,
+          "left": 166,
+          "width": 240,
+          "height": 114,
+          "cName": "spinbox1",
+          "text": "Spinbox",
+          "visible": true,
+          "styleOverrides": {},
+          "styleBindings": {},
+          "actionFlows": [],
+          "bindings": {
+            "value": "2bffa65e-87ba-41f6-8858-fd5fc03bdab9"
+          },
+          "minValue": -20,
+          "maxValue": 50,
+          "value": 22
+        },
+        {
+          "id": "widget-fe212afa-88f6-4ca0-b747-f61af9d2547e",
+          "type": "Status",
+          "top": 300,
+          "left": 270,
+          "width": 29,
+          "height": 52,
+          "cName": "status2",
+          "text": "Status",
+          "visible": true,
+          "styleOverrides": {},
+          "styleBindings": {},
+          "actionFlows": [],
+          "statusType": "wifi"
+        },
+        {
+          "id": "widget-9be18218-5341-438e-8dc1-ec4e5cd72bde",
+          "type": "TabView",
+          "top": 0,
+          "left": 0,
+          "width": 800,
+          "height": 40,
+          "cName": "tabview4",
+          "text": "TabView",
+          "visible": true,
+          "styleOverrides": {},
+          "styleBindings": {},
+          "actionFlows": []
+        },
+        {
+          "id": "widget-73c3a6dd-9bee-4a7a-8c77-4daaf1e8f7ef",
+          "type": "Spinner",
+          "top": 327,
+          "left": 392,
+          "width": 100,
+          "height": 50,
+          "cName": "spinner4",
+          "text": "Spinner",
+          "visible": true,
+          "styleOverrides": {},
+          "styleBindings": {},
+          "actionFlows": []
+        },
+        {
+          "id": "widget-36321f4a-4e05-4779-b403-686a33ff6ff6",
+          "type": "Button",
+          "top": 430,
+          "left": 0,
+          "width": 252,
+          "height": 47,
+          "cName": "button7",
+          "text": "Screen 2",
+          "visible": true,
+          "styleOverrides": {},
+          "styleBindings": {
+            "backgroundColor": "primary",
+            "textColor": "textOnPrimary"
+          },
+          "actionFlows": [
+            {
+              "nodes": [
+                {
+                  "id": "36e332bf-b9d2-404e-81ef-041375ea4a50",
+                  "type": "EventTrigger",
+                  "x": 50,
+                  "y": 100,
+                  "properties": {
+                    "event": "Clicked"
+                  }
+                },
+                {
+                  "id": "85c08c1e-d0bc-4b7b-8a1f-beb744e53faa",
+                  "type": "ChangeScreen",
+                  "x": 300,
+                  "y": 100,
+                  "properties": {
+                    "screenId": "screen-76a53d50-ba18-440f-a8f8-50f391005a7e"
+                  }
+                }
+              ],
+              "connections": [
+                {
+                  "id": "34f18239-f006-41ef-abb5-601a61bb20c8",
+                  "fromNodeId": "36e332bf-b9d2-404e-81ef-041375ea4a50",
+                  "fromPortId": "flow_out",
+                  "toNodeId": "85c08c1e-d0bc-4b7b-8a1f-beb744e53faa",
+                  "toPortId": "flow_in"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "widget-164075aa-45e6-4afc-a694-bb28a398a84d",
+          "type": "Label",
+          "top": 107,
+          "left": 513,
+          "width": 226,
+          "height": 53,
+          "cName": "label8",
+          "text": "Screen 1",
+          "visible": true,
+          "styleOverrides": {
+            "fontSize": 30
+          },
+          "styleBindings": {
+            "textColor": "textOnBackground"
+          },
+          "actionFlows": []
+        }
+      ],
+      "actionFlows": [
+        {
+          "nodes": [
+            {
+              "id": "55b7a51c-87e8-4952-b83d-04b7983acc8a",
+              "type": "EventTrigger",
+              "x": 50,
+              "y": 100,
+              "properties": {
+                "event": "Loaded"
+              }
+            },
+            {
+              "id": "7a576a1c-1531-42dc-9c9c-a792365c430b",
+              "type": "ChangeScreen",
+              "x": 300,
+              "y": 100,
+              "properties": {
+                "screenId": "screen-7186c6cd-e833-4fa0-912f-5135facfb040"
+              }
+            }
+          ],
+          "connections": [
+            {
+              "id": "2c0f8c89-792f-48d7-9310-4b95b0df1b12",
+              "fromNodeId": "55b7a51c-87e8-4952-b83d-04b7983acc8a",
+              "fromPortId": "flow_out",
+              "toNodeId": "7a576a1c-1531-42dc-9c9c-a792365c430b",
+              "toPortId": "flow_in"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "screen-76a53d50-ba18-440f-a8f8-50f391005a7e",
+      "name": "Screen 2",
+      "widgets": [
+        {
+          "id": "widget-efb00b7d-a7fc-44ce-b035-a88a298e5a85",
+          "type": "Button",
+          "top": 430,
+          "left": 0,
+          "width": 314,
+          "height": 48,
+          "cName": "button5",
+          "text": "Goto Screen 1",
+          "visible": true,
+          "styleOverrides": {
+            "fontSize": 30,
+            "fontFamily": "Sans-Serif"
+          },
+          "styleBindings": {
+            "backgroundColor": "primary",
+            "textColor": "textOnPrimary"
+          },
+          "actionFlows": [
+            {
+              "nodes": [
+                {
+                  "id": "838ae336-cb6c-4ae2-a505-fa832a325ea1",
+                  "type": "EventTrigger",
+                  "x": 50,
+                  "y": 100,
+                  "properties": {
+                    "event": "Clicked"
+                  }
+                },
+                {
+                  "id": "3ea6fb61-2c6a-4087-897f-9860d7eecc85",
+                  "type": "ChangeScreen",
+                  "x": 300,
+                  "y": 100,
+                  "properties": {
+                    "screenId": "screen-7186c6cd-e833-4fa0-912f-5135facfb040"
+                  }
+                }
+              ],
+              "connections": [
+                {
+                  "id": "852da834-4fd3-4c0e-a9a7-647712890b07",
+                  "fromNodeId": "838ae336-cb6c-4ae2-a505-fa832a325ea1",
+                  "fromPortId": "flow_out",
+                  "toNodeId": "3ea6fb61-2c6a-4087-897f-9860d7eecc85",
+                  "toPortId": "flow_in"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "widget-c3ca62fb-7743-42c9-afed-39ca204c2257",
+          "type": "InputField",
+          "top": 55,
+          "left": 181,
+          "width": 235,
+          "height": 50,
+          "cName": "inputfield6",
+          "text": "InputField",
+          "visible": true,
+          "styleOverrides": {},
+          "styleBindings": {
+            "backgroundColor": "surface",
+            "textColor": "textOnBackground",
+            "borderColor": "primary"
+          },
+          "actionFlows": []
+        },
+        {
+          "id": "widget-a05bde25-3140-437c-9868-171743a0df5d",
+          "type": "Label",
+          "top": 5,
+          "left": 19,
+          "width": 430,
+          "height": 50,
+          "cName": "label9",
+          "text": "Screen 2",
+          "visible": true,
+          "styleOverrides": {
+            "fontSize": 30
+          },
+          "styleBindings": {
+            "textColor": "textOnBackground"
+          },
+          "actionFlows": []
+        }
+      ],
+      "actionFlows": []
+    }
+  ],
+  "activeScreenId": "screen-76a53d50-ba18-440f-a8f8-50f391005a7e",
+  "selectedWidgetIds": [],
+  "variables": [
+    {
+      "id": "2bffa65e-87ba-41f6-8858-fd5fc03bdab9",
+      "name": "temperature_outside",
+      "initialValue": 34
+    }
+  ],
+  "projectName": "myMeteo",
+  "themes": [
+    {
+      "id": "theme-b49da550-667d-4dbf-915f-3548c976dc97",
+      "name": "Default Dark",
+      "colors": {
+        "primary": "#3b82f6",
+        "secondary": "#8b5cf6",
+        "background": "#1f2937",
+        "surface": "#374151",
+        "textOnPrimary": "#ffffff",
+        "textOnBackground": "#e5e7eb"
+      }
+    }
+  ],
+  "activeThemeId": "theme-b49da550-667d-4dbf-915f-3548c976dc97",
+  "styles": [],
+  "lvglVersion": "8.4",
+  "rotation": 0,
+  "canvasSize": {
+    "label": "800x480",
+    "width": 800,
+    "height": 480,
+    "isRound": false
+  },
+  "colorDepth": 32,
+  "performanceSettings": {
+    "bufferStrategy": "Double Full Framebuffer (Double)",
+    "partialBufferSizeKB": 32,
+    "enableCustomMemoryArena": false,
+    "lvMemorySizeKB": 128,
+    "disableAnimations": false,
+    "disableShadows": false
+  },
+  "assets": [],
+  "fontAssets": [],
+  "aiProviders": [
+    {
+      "name": "OpenAI",
+      "id": "openai",
+      "isCustom": false
+    },
+    {
+      "name": "Anthropic",
+      "id": "anthropic",
+      "isCustom": false
+    },
+    {
+      "name": "Google",
+      "hasFreeTier": true,
+      "llmModel": "gemini-2.5-flash",
+      "id": "google",
+      "isCustom": false
+    },
+    {
+      "name": "OpenRouter",
+      "hasFreeTier": true,
+      "id": "openrouter",
+      "isCustom": false
+    },
+    {
+      "name": "Perplexity",
+      "id": "perplexity",
+      "isCustom": false
+    },
+    {
+      "name": "Fireworks",
+      "id": "fireworks",
+      "isCustom": false
+    },
+    {
+      "name": "Manus",
+      "id": "manus",
+      "isCustom": false
+    },
+    {
+      "name": "DeepSeek",
+      "id": "deepseek",
+      "isCustom": false
+    }
+  ],
+  "templates": [],
+  "projectI18n": {
+    "languages": [
+      {
+        "id": "lang-4bf2aa11-a73b-4133-a4b2-75b7114baab2",
+        "code": "en-US",
+        "name": "English (US)",
+        "flagAssetId": "asset-built-in-us-flag"
+      }
+    ],
+    "defaultLanguageId": "lang-4bf2aa11-a73b-4133-a4b2-75b7114baab2",
+    "translations": {}
+  }
+}
