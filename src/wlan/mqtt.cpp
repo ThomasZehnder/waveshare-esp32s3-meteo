@@ -92,6 +92,16 @@ String _generateValue(const char *topic, String s)
     return v;
 }
 
+int _getState4Counter(const char *payload)
+{
+    if (String(payload) == "\"on\"")
+    {
+        return 11; //like true % 2
+    }
+
+    return 10; //like false % 2
+}
+
 void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties properties, size_t len, size_t index, size_t total)
 {
     // interpretate payload as zeroended string
@@ -133,26 +143,12 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     if (mqttCheckTopic(("home/lamp1/cmd"), topic))
     {
         Serial.println("  --> Lamp 1 CMD received: " + String(s) + " - " + topic);
-        if (String(s) == "\"on\"")
-        {
-            Asset.clickCount1 =11;
-        }
-        else 
-        {
-            Asset.clickCount1 = 10;
-        }
+        Asset.clickCount1 =_getState4Counter(s);
     }
     if (mqttCheckTopic(("home/lamp2/cmd"), topic))
     {
         Serial.println("  --> Lamp 2 CMD received: " + String(s) + " - " + topic);
-        if (String(s) == "\"on\"")
-        {
-            Asset.clickCount2 = 11;
-        }
-        else 
-        {
-            Asset.clickCount2 = 10;
-        }
+        Asset.clickCount2 =_getState4Counter(s);
     }
 }
 
@@ -165,9 +161,7 @@ void onMqttPublish(uint16_t packetId)
 
 void mqttSubscribe(const char *topic)
 {
-    String t;
-
-    t = _generateTopic(topic);
+    String t = _generateTopic(topic);
 
     // uint16_t packetIdSub = mqttClient.subscribe(t.c_str(), 0);
 
