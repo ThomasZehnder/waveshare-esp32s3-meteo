@@ -19,22 +19,26 @@ String getOnOffState(int count)
     return "off";
 }
 
+void getText4Count(int x,int count, char *buf)
+{
+    snprintf(buf, sizeof(buf), "Count %i: %d : %s", x, count, getOnOffState(count).c_str());
+}
+
 void on_0_button0_Clicked(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED)
     {
         Asset.clickCount1++;
-        printf("Button clicked! Count: %d\n", Asset.clickCount1);
+        char buf[32];
+        getText4Count(0, Asset.clickCount1, buf);
+        printf("Button 0 clicked! : %s\n", buf);
 
         // Update counter label
         if (ui_0_counter_label0 != NULL)
         {
-            char buf[32];
-            snprintf(buf, sizeof(buf), "Count 0: %d", Asset.clickCount1);
             lv_label_set_text(ui_0_counter_label0, buf);
         }
-
         Asset.sendLamp1Command = getOnOffState(Asset.clickCount1);
     }
 }
@@ -45,16 +49,17 @@ void on_0_button1_Clicked(lv_event_t *e)
     if (code == LV_EVENT_CLICKED)
     {
         Asset.clickCount2++;
-        printf("Button 1 clicked! Count: %d\n", Asset.clickCount2);
+
+        char buf[32];
+        getText4Count(1, Asset.clickCount2, buf);
+        printf("Button 1 clicked! : %s\n", buf);
 
         // Update counter label
         if (ui_0_counter_label1 != NULL)
         {
-            char buf[32];
-            snprintf(buf, sizeof(buf), "Count 1: %d", Asset.clickCount2);
+            
             lv_label_set_text(ui_0_counter_label1, buf);
         }
-
         Asset.sendLamp2Command = getOnOffState(Asset.clickCount2);
     }
 }
