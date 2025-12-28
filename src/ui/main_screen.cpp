@@ -88,7 +88,7 @@ void ui_Main_screen_init(void)
     // Increase font size by using next available larger font
     lv_obj_set_style_text_font(ui_0_counter_label0, &lv_font_montserrat_30, 0);
     lv_obj_align(ui_0_counter_label0, LV_ALIGN_TOP_RIGHT, -10, 40);
-    
+
     // Create second button below the first
     ui_0_button1 = lv_btn_create(UI_Screens.Main_Screen);
     lv_obj_align(ui_0_button1, LV_ALIGN_TOP_LEFT, 10, 120); // Position below first button
@@ -106,4 +106,21 @@ void ui_Main_screen_init(void)
     lv_obj_set_style_text_color(ui_0_counter_label1, lv_color_white(), 0);
     lv_obj_set_style_text_font(ui_0_counter_label1, &lv_font_montserrat_30, 0);
     lv_obj_align(ui_0_counter_label1, LV_ALIGN_TOP_RIGHT, -10, 120);
+}
+
+void ui_Main_screen_update(void)
+{
+    // Update counter labels
+    if (ui_0_counter_label0 != NULL)
+    {
+        char buf[32];
+        snprintf(buf, sizeof(buf), "Count 0: %d", Asset.clickCount1);
+        lv_label_set_text(ui_0_counter_label0, buf);
+    }
+    if (ui_0_counter_label1 != NULL)
+    {
+        char buf[32];
+        snprintf(buf, sizeof(buf), "Count 1: %d", Asset.clickCount2);
+        lv_label_set_text(ui_0_counter_label1, buf);
+    }
 }

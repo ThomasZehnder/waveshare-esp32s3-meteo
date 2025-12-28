@@ -36,8 +36,12 @@ void onMqttConnect(bool sessionPresent)
     mqttPublishString("*/myIpAddr", Asset.ipAddr);
     mqttPublishString(("*/" + String(ASSENMBLY_JOB_TOPIC)).c_str(), "waiting");
 
-    // subscribe assembly "job"
+    // subscribe asset "job"
     mqttSubscribe(("*/" + String(ASSENMBLY_JOB_TOPIC)).c_str());
+
+    // subscribe lamp commands
+    mqttSubscribe("home/lamp1/cmd");
+    mqttSubscribe("home/lamp2/cmd");
 }
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason)
 {
@@ -125,6 +129,30 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     if (mqttCheckTopic(("*/" + String(ASSENMBLY_JOB_TOPIC)).c_str(), topic))
     {
         Serial.println("  --> JOB received: " + String(s) + " - " + topic);
+    }
+    if (mqttCheckTopic(("home/lamp1/cmd"), topic))
+    {
+        Serial.println("  --> Lamp 1 CMD received: " + String(s) + " - " + topic);
+        if (String(s) == "on")
+        {
+            Asset.clickCount1 = 1;
+        }
+        else if (String(s) == "off")
+        {
+            Asset.clickCount1 = 0;
+        }
+    }
+    if (mqttCheckTopic(("home/lamp2/cmd"), topic))
+    {
+        Serial.println("  --> Lamp 2 CMD received: " + String(s) + " - " + topic);
+        if (String(s) == "on")
+        {
+            Asset.clickCount2 = 1;
+        }
+        else if (String(s) == "off")
+        {
+            Asset.clickCount2 = 0;
+        }
     }
 }
 

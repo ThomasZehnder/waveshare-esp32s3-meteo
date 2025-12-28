@@ -120,9 +120,6 @@ void ui_create_main_elements(lv_obj_t *parent)
 /////////////////////
 // SCREEN FUNCTIONS
 /////////////////////
-void ui_Main_screen_init(void);
-
-void getBoolState();
 
 void ui_Screen_1_screen_init(void)
 {
@@ -204,6 +201,8 @@ void ui_Screen_2_screen_init(void)
 // forward declaration
 void ui_Service_Screen_init(void);
 void ui_Service_Screen_update(void);
+void ui_Main_screen_init(void);
+void ui_Main_screen_update(void);
 
 /////////////////////
 // MAIN UI FUNCTION
@@ -220,5 +219,6 @@ void ui_init(void)
  void ui_loop(void)
  {
      // Placeholder for any periodic UI updates if needed
+     ui_Main_screen_update();
      ui_Service_Screen_update();
  }
