@@ -21,9 +21,9 @@ void connectToMqtt()
 }
 
 // MQTT event callbacks
-void onMqttConnect(bool sessionPresent)
+void onMqttDisconnect(bool sessionPresent)
 {
-  Serial.println("MqttSetup (CallBack) --> Connected to MQTT..." + String(MQTT_HOST));
+  Serial.println("onMqttDisconnect (CallBack) --> Connected to MQTT..." + String(MQTT_HOST));
   Asset.mqttConnected = true;
   Serial.print("Session present: ");
   Serial.println(sessionPresent);
@@ -47,7 +47,7 @@ void onMqttConnect(bool sessionPresent)
 }
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason)
 {
-  Serial.println("MqttSetup (CallBack) --> Disconnected from MQTT.");
+  Serial.println("onMqttDisconnect (CallBack) --> Disconnected from MQTT.");
   Asset.mqttConnected = false;
 
   if (Asset.wifiConnected)

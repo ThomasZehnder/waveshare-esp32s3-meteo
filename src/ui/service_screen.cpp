@@ -25,10 +25,16 @@ void ui_Service_Screen_init(void)
     lv_label_set_text_fmt(wifi_status_label, "WiFi Connected: %s", Asset.wifiConnected ? "Yes" : "No");
     lv_obj_align(wifi_status_label, LV_ALIGN_TOP_LEFT, 0, 40);    
 
+    //show MQTT status
+    wifi_status_label = lv_label_create(UI_Screens.Service_Screen);   
+    lv_label_set_text_fmt(wifi_status_label, "MQTT Connected: %s", Asset.mqttConnected ? "Yes" : "No");
+    lv_obj_align(wifi_status_label, LV_ALIGN_TOP_LEFT, 0, 60);    
+
 }
 
 void ui_Service_Screen_update(void)
 {
     lv_label_set_text_fmt(ip_label, "IP Address: %s", Asset.ipAddr.c_str());
     lv_label_set_text_fmt(wifi_status_label, "WiFi Connected: %s", Asset.wifiConnected ? "Yes" : "No");
+    lv_label_set_text_fmt(wifi_status_label, "MQTT Connected: %s", Asset.mqttConnected ? "Yes" : "No");
 }   

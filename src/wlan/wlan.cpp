@@ -15,16 +15,13 @@ void onWifiConnect(WiFiEvent_t event, WiFiEventInfo_t info)
     Asset.ipAddr = WiFi.localIP().toString();
     Asset.wifiConnected = true;
 
-    // mqttClient.setServer(ip, Assembly.cfg.mqtt[cfgIndex].port);
-    // Serial.print("onWifiConnect (CallBack) --> mqtt client id: ");
-    // Serial.println(mqttClient.getClientId());
-
-    // connectToMqtt();
+    Serial.print("onWifiConnect (CallBack) --> mqtt connectd: ");
+    mqtt_connect();
 }
 
 void onWifiDisconnect(WiFiEvent_t event, WiFiEventInfo_t info)
 {
-    Serial.println("MqttSetup (CallBack) --> Disconnected from WiFi.");
+    Serial.println("onWifiDisconnect (CallBack) --> Disconnected from WiFi.");
     Asset.wifiConnected = false;
 
     // mqttReconnectTimer.detach(); // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
