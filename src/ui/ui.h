@@ -30,6 +30,7 @@ extern lv_obj_t *ui_Service_Screen;
 extern lv_obj_t *counter_label;
 
 extern lv_obj_t *value_label;
+extern lv_obj_t *slider;
 
 // Widget externs
 

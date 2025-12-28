@@ -14,8 +14,15 @@ void slider_event_cb(lv_event_t *e)
 {
     lv_obj_t *slider = lv_event_get_target(e);
     int value = lv_slider_get_value(slider);
-    lv_label_set_text_fmt(value_label, "%d%%", value);
-    Serial.printf("Slider value: %d\n", value);
+    if (value_label)
+    {
+        lv_label_set_text_fmt(value_label, "%d%%", value);
+        Serial.printf("Slider value: %d\n", value);
+    }
+    else
+    {
+        Serial.printf("Slider value: %d (label not ready)\n", value);
+    }
 }
 // Button click event callback
 
