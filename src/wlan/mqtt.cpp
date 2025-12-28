@@ -133,25 +133,25 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     if (mqttCheckTopic(("home/lamp1/cmd"), topic))
     {
         Serial.println("  --> Lamp 1 CMD received: " + String(s) + " - " + topic);
-        if (String(s) == "on")
+        if (String(s) == "\"on\"")
         {
-            Asset.clickCount1 = 1;
+            Asset.clickCount1 =11;
         }
-        else if (String(s) == "off")
+        else 
         {
-            Asset.clickCount1 = 0;
+            Asset.clickCount1 = 10;
         }
     }
     if (mqttCheckTopic(("home/lamp2/cmd"), topic))
     {
         Serial.println("  --> Lamp 2 CMD received: " + String(s) + " - " + topic);
-        if (String(s) == "on")
+        if (String(s) == "\"on\"")
         {
-            Asset.clickCount2 = 1;
+            Asset.clickCount2 = 11;
         }
-        else if (String(s) == "off")
+        else 
         {
-            Asset.clickCount2 = 0;
+            Asset.clickCount2 = 10;
         }
     }
 }
