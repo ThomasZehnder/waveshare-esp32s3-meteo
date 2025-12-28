@@ -26,23 +26,6 @@ void slider_event_cb(lv_event_t *e)
 }
 // Button click event callback
 
-void on_button0_Clicked(lv_event_t *e)
-{
-    lv_event_code_t code = lv_event_get_code(e);
-    if (code == LV_EVENT_CLICKED)
-    {
-        click_count++;
-        printf("Button clicked! Count: %d\n", click_count);
-
-        // Update counter label
-        if (counter_label != NULL)
-        {
-            char buf[32];
-            snprintf(buf, sizeof(buf), "Count: %d", click_count);
-            lv_label_set_text(counter_label, buf);
-        }
-    }
-}
 
 void on_nav_bar_Main_Screen_Clicked(lv_event_t *e)
 {
