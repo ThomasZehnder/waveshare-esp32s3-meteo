@@ -78,17 +78,25 @@ void board_init()
         Serial.printf("❌ GT911 not responding after reinit! Error=%d\n", error);
     }
 
+    // Initialize the GT911 now that I2C has been reconfigured
+    bool touch_ok = touch_init(LCD_H_RES, LCD_V_RES);
+    Serial.printf("Touch init result: %s\n", touch_ok ? "OK" : "FAILED");
+
     // Register touch input with proper configuration
-    lv_indev_drv_init(&indev_drv);
-    indev_drv.type = LV_INDEV_TYPE_POINTER;
-    indev_drv.read_cb = touchpad_read;
-    indev_drv.user_data = NULL;
-    lv_indev_t *touch_indev = lv_indev_drv_register(&indev_drv);
-    if (touch_indev) {
-        Serial.println("✅ Touch input device registered successfully");
-        Serial.printf("Touch device type: %d, read_cb: %p\n", indev_drv.type, indev_drv.read_cb);
+    if (touch_ok) {
+        lv_indev_drv_init(&indev_drv);
+        indev_drv.type = LV_INDEV_TYPE_POINTER;
+        indev_drv.read_cb = touchpad_read;
+        indev_drv.user_data = NULL;
+        lv_indev_t *touch_indev = lv_indev_drv_register(&indev_drv);
+        if (touch_indev) {
+            Serial.println("✅ Touch input device registered successfully");
+            Serial.printf("Touch device type: %d, read_cb: %p\n", indev_drv.type, indev_drv.read_cb);
+        } else {
+            Serial.println("❌ Failed to register touch input device");
+        }
     } else {
-        Serial.println("❌ Failed to register touch input device");
+        Serial.println("⚠️ Skipping LVGL touch registration because GT911 init failed");
     }
 
     // Force an immediate touch read test
