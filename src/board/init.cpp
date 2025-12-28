@@ -5,8 +5,17 @@
 #include "board/lcd.h"
 #include "board/BOARD_WAVESHARE_ESP32_S3_TOUCH_LCD_4_3.h"
 
-static bool touch_detected = false;
 
+
+// NOTE:
+// These LVGL-related objects must have static storage duration because
+// LVGL keeps internal references to them after initialization:
+//  - lcd_init_display() stores pointers to draw_buf and the underlying
+//    color buffers (buf1, buf2) and uses them during rendering.
+//  - lv_indev_drv_register() stores a pointer to indev_drv and uses it
+//    asynchronously for input handling.
+// They therefore cannot be moved into board_init()'s local scope without
+// causing dangling references inside LVGL.
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t *buf1 = nullptr;
 static lv_color_t *buf2 = nullptr;
@@ -31,7 +40,8 @@ void board_init()
     digitalWrite(LCD_BL, HIGH);
     Serial.println("✅ Backlight initialized and turned ON");
 
-    // Initialize GT911 Touch Controller
+    /*
+    static bool touch_detected = false;
     Serial.println("Initializing GT911 touch controller...");
     touch_detected = touch_init(LCD_H_RES, LCD_V_RES);
     if (!touch_detected)

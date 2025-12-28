@@ -2,10 +2,7 @@
 #include <lvgl.h>
 #include "board/init.h"
 
-
 static lv_obj_t *value_label;
-
-
 
 void slider_event_cb(lv_event_t *e)
 {
