@@ -21,6 +21,7 @@ void setup()
 
 void loop()
 {
+    static uint32_t last_task_time = 0;
     static uint32_t last_tick = millis();
 
     uint32_t now = millis();
@@ -29,9 +30,13 @@ void loop()
 
     lv_timer_handler();
 
-    wlan_loop();
+    // Schedule tasks every 500ms
+    if (now - last_task_time >= 500) {
+        lv_timer_handler();
+        wlan_loop();
+        ui_loop();
+        last_task_time = now;
+    }
 
-    ui_loop();
-    
     delay(5);
 }
