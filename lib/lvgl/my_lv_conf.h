@@ -266,7 +266,7 @@
  *If LV_USE_LOG is enabled an error message will be printed on failure*/
 #define LV_USE_ASSERT_NULL          1   /*Check if the parameter is NULL. (Very fast, recommended)*/
 #define LV_USE_ASSERT_MALLOC        1   /*Checks is the memory is successfully allocated or no. (Very fast, recommended)*/
-#define LV_USE_ASSERT_STYLE         1   /*Check if the styles are properly initialized. (Very fast, recommended)*/
+#define LV_USE_ASSERT_STYLE         0   /*Check if the styles are properly initialized. (Very fast, recommended)*/
 #define LV_USE_ASSERT_MEM_INTEGRITY 0   /*Check the integrity of `lv_mem` after critical operations. (Slow)*/
 #define LV_USE_ASSERT_OBJ           0   /*Check the object's type and existence (e.g. not deleted). (Slow)*/
 
@@ -577,10 +577,10 @@
 #if LV_USE_THEME_DEFAULT
 
     /*0: Light mode; 1: Dark mode*/
-    #define LV_THEME_DEFAULT_DARK 0
+    #define LV_THEME_DEFAULT_DARK 1
 
     /*1: Enable grow on press*/
-    #define LV_THEME_DEFAULT_GROW 1
+    #define LV_THEME_DEFAULT_GROW 0
 
     /*Default transition time in [ms]*/
     #define LV_THEME_DEFAULT_TRANSITION_TIME 80
