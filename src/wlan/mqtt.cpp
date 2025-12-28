@@ -33,11 +33,11 @@ void onMqttConnect(bool sessionPresent)
       Serial.print("Publishing at QoS 2, packetId: ");
       Serial.println(packetIdPub2); */
 
-    mqttPublishString("myIpAddr", Asset.ipAddr);
-    mqttPublishString(ASSENMBLY_JOB_TOPIC, "waiting");
+    mqttPublishString("*/myIpAddr", Asset.ipAddr);
+    mqttPublishString(("*/" + String(ASSENMBLY_JOB_TOPIC)).c_str(), "waiting");
 
     // subscribe assembly "job"
-    mqttSubscribe(ASSENMBLY_JOB_TOPIC);
+    mqttSubscribe(("*/" + String(ASSENMBLY_JOB_TOPIC)).c_str());
 }
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason)
 {
@@ -64,6 +64,28 @@ void onMqttUnsubscribe(uint16_t packetId)
     Serial.println("Unsubscribe acknowledged.");
     Serial.print("  packetId: ");
     Serial.println(packetId);
+}
+String _generateTopic(const char *topic)
+{
+    String t = "";
+
+    // if topic starts with '*/' then use replace * with deviceId
+    if (topic[0] == '*' && topic[1] == '/')
+    {
+        t = Asset.deviceId;
+        t += &topic[1]; // append rest of topic
+    }
+    else
+    {
+        t += topic;
+    }
+    return t;
+}
+String _generateValue(const char *topic, String s)
+{
+    String v;
+    v = s;
+    return v;
 }
 
 void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties properties, size_t len, size_t index, size_t total)
@@ -100,7 +122,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     SubscriptionList.set(topic, String(s));
 
     // check on job, fixe defined
-    if (mqttCheckTopic(ASSENMBLY_JOB_TOPIC, topic))
+    if (mqttCheckTopic(("*/" + String(ASSENMBLY_JOB_TOPIC)).c_str(), topic))
     {
         Serial.println("  --> JOB received: " + String(s) + " - " + topic);
     }
@@ -117,9 +139,7 @@ void mqttSubscribe(const char *topic)
 {
     String t;
 
-    t = Asset.deviceId;
-    t += "/";
-    t += topic;
+    t = _generateTopic(topic);
 
     // uint16_t packetIdSub = mqttClient.subscribe(t.c_str(), 0);
 
@@ -141,30 +161,11 @@ void mqttSubscribe(const char *topic)
 
 bool mqttCheckTopic(const char *topic, const char *inTopic)
 {
-    String t(Asset.deviceId);
-    t += "/";
-    t += topic;
+    String t = _generateTopic(topic);
     return (strcmp(t.c_str(), inTopic) == 0);
 }
 
-String _generateTopic(const char *topic)
-{
-    String t;
 
-    t = Asset.deviceId;
-    t += "/";
-    t += topic;
-
-    return t;
-}
-String _generateValue(const char *topic, String s)
-{
-    String v;
-
-    v = s;
-
-    return v;
-}
 
 void mqttPublishLong(const char *topic, long x)
 {
@@ -250,7 +251,7 @@ void mqtt_loop()
     {
         if (Asset.sendLamp1Command != "")
         {
-            mqttPublishString("lamp1/cmd", Asset.sendLamp1Command);
+            mqttPublishString("home/lamp1/cmd", Asset.sendLamp1Command);
             Asset.sendLamp1Command = "";
         }
     }
