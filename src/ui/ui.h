@@ -59,6 +59,7 @@ void ui_create_main_elements(lv_obj_t *parent);
 
     // Function declarations for event callbacks
     void ui_init(void);
+    void ui_loop(void);
 
 #ifdef __cplusplus
 } /*extern "C"*/

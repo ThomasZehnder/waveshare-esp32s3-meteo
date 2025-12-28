@@ -243,6 +243,7 @@ void ui_Screen_2_screen_init(void)
 
 // forward declaration
 void ui_Service_Screen_init(void);
+void ui_Service_Screen_update(void);
 
 /////////////////////
 // MAIN UI FUNCTION
@@ -256,3 +257,8 @@ void ui_init(void)
     ui_Service_Screen_init();
     lv_scr_load(UI_Screens.Main_Screen);
 }
+ void ui_loop(void)
+ {
+     // Placeholder for any periodic UI updates if needed
+     ui_Service_Screen_update();
+ }

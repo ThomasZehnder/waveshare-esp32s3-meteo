@@ -31,5 +31,7 @@ void loop()
 
     wlan_loop();
 
+    ui_loop();
+    
     delay(5);
 }
