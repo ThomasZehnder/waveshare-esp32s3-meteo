@@ -246,4 +246,12 @@ void mqtt_disconnect()
 void mqtt_loop()
 {
     // Handle MQTT client loop here
+    if (mqttClient.connected())
+    {
+        if (Asset.sendLamp1Command != "")
+        {
+            mqttPublishString("lamp1/cmd", Asset.sendLamp1Command);
+            Asset.sendLamp1Command = "";
+        }
+    }
 }

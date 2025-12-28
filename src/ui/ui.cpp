@@ -42,7 +42,7 @@ void slider_event_cb(lv_event_t *e);
 /////////////////////
 // INTERNAL variables
 /////////////////////
-int click_count = 0;
+
 
 /////////////////////
 // ASSETS
@@ -62,8 +62,6 @@ lv_obj_t *nav_bar;
 lv_obj_t *value_label;
 lv_obj_t *slider;
 
-lv_obj_t *counter_label;
-lv_obj_t *ui_button0;
 lv_obj_t *ui_spinbox1;
 lv_obj_t *ui_status2;
 lv_obj_t *ui_tabview4;

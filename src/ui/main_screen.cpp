@@ -4,7 +4,9 @@
 #include "asset.h"
 
 lv_obj_t *ui_button0;
+lv_obj_t *ui_counter_label;
 
+int click_count = 0;
 
 void on_button0_Clicked(lv_event_t *e)
 {
@@ -15,11 +17,21 @@ void on_button0_Clicked(lv_event_t *e)
         printf("Button clicked! Count: %d\n", click_count);
 
         // Update counter label
-        if (counter_label != NULL)
+        if (ui_counter_label != NULL)
         {
             char buf[32];
             snprintf(buf, sizeof(buf), "Count: %d", click_count);
-            lv_label_set_text(counter_label, buf);
+            lv_label_set_text(ui_counter_label, buf);
+        }
+
+        // Toggle lamp command
+        if (click_count % 2 == 1)
+        {
+            Asset.sendLamp1Command = "on";
+        }
+        else
+        {
+            Asset.sendLamp1Command = "off";
         }
     }
 }
@@ -37,24 +49,24 @@ void ui_Main_screen_init(void)
 
     // Create single button in center of active screen
     ui_button0 = lv_btn_create(UI_Screens.Main_Screen);
-    lv_obj_align(ui_button0, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_align(ui_button0, LV_ALIGN_TOP_LEFT, 10, 40);
 
     // Add click event listener to button
     lv_obj_add_event_cb(ui_button0, on_button0_Clicked, LV_EVENT_CLICKED, NULL);
 
     // Add label to button
     lv_obj_t *btn_label = lv_label_create(ui_button0);
-    lv_label_set_text(btn_label, "Click Me!");
+    lv_label_set_text(btn_label, "Lamp Office Thomas");
     lv_obj_set_style_text_font(btn_label, &lv_font_montserrat_30, 0);
     lv_obj_center(btn_label);
 
     // Create counter display label below button
-    counter_label = lv_label_create(UI_Screens.Main_Screen);
-    lv_label_set_text(counter_label, "Count: 0");
-    lv_obj_set_style_text_color(counter_label, lv_color_white(), 0);
+    ui_counter_label = lv_label_create(UI_Screens.Main_Screen);
+    lv_label_set_text(ui_counter_label, "Count: 0");
+    lv_obj_set_style_text_color(ui_counter_label, lv_color_white(), 0);
     // Increase font size by using next available larger font
-    lv_obj_set_style_text_font(counter_label, &lv_font_montserrat_30, 0);
-    lv_obj_align(counter_label, LV_ALIGN_CENTER, 0, 60);
+    lv_obj_set_style_text_font(ui_counter_label, &lv_font_montserrat_30, 0);
+    lv_obj_align(ui_counter_label, LV_ALIGN_TOP_LEFT, 600, 100);
 
     // add spinner
     lv_obj_t *spinner = lv_spinner_create(UI_Screens.Main_Screen, 1000, 60);

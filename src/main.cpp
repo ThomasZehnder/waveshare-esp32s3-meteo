@@ -3,6 +3,7 @@
 #include "board/init.h"
 #include "ui/ui.h"
 #include "wlan/wlan.h"
+#include "wlan/mqtt.h"
 #include "asset.h"
 
 asset_t Asset;
@@ -37,6 +38,8 @@ void loop()
         ui_loop();
         last_task_time = now;
     }
+
+    mqtt_loop();
 
     delay(5);
 }
