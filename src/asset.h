@@ -8,6 +8,10 @@ struct asset_t
     bool mqttConnected= 0;
 
     String sendLamp1Command = "";
+    String sendLamp2Command = "";
+
+    int clickCount1 = 0;
+    int clickCount2 = 0;
 };
 
 extern asset_t Asset;

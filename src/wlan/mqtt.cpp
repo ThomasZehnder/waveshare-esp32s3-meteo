@@ -165,8 +165,6 @@ bool mqttCheckTopic(const char *topic, const char *inTopic)
     return (strcmp(t.c_str(), inTopic) == 0);
 }
 
-
-
 void mqttPublishLong(const char *topic, long x)
 {
     char s[200];
@@ -252,7 +250,14 @@ void mqtt_loop()
         if (Asset.sendLamp1Command != "")
         {
             mqttPublishString("home/lamp1/cmd", Asset.sendLamp1Command);
+            mqttPublishString("*/lamp1/cmd", Asset.sendLamp1Command);
             Asset.sendLamp1Command = "";
+        }
+        if (Asset.sendLamp2Command != "")
+        {
+            mqttPublishString("home/lamp2/cmd", Asset.sendLamp2Command);
+            mqttPublishString("*/lamp2/cmd", Asset.sendLamp2Command);
+            Asset.sendLamp2Command = "";
         }
     }
 }

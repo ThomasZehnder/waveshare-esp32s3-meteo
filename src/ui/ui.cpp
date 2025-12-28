@@ -122,6 +122,8 @@ void ui_create_main_elements(lv_obj_t *parent)
 /////////////////////
 void ui_Main_screen_init(void);
 
+void getBoolState();
+
 void ui_Screen_1_screen_init(void)
 {
     UI_Screens.Screen_1 = lv_obj_create(NULL);

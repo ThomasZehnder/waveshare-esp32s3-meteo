@@ -3,36 +3,59 @@
 #include <Arduino.h>
 #include "asset.h"
 
-lv_obj_t *ui_button0;
-lv_obj_t *ui_counter_label;
+lv_obj_t *ui_0_button0;
+lv_obj_t *ui_0_counter_label0;
+lv_obj_t *ui_0_button1;
+lv_obj_t *ui_0_counter_label1;
 
-int click_count = 0;
+String getOnOffState(int count)
+{
 
-void on_button0_Clicked(lv_event_t *e)
+    if (count % 2 == 1)
+    {
+        return "on";
+    }
+
+    return "off";
+}
+
+void on_0_button0_Clicked(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED)
     {
-        click_count++;
-        printf("Button clicked! Count: %d\n", click_count);
+        Asset.clickCount1++;
+        printf("Button clicked! Count: %d\n", Asset.clickCount1);
 
         // Update counter label
-        if (ui_counter_label != NULL)
+        if (ui_0_counter_label0 != NULL)
         {
             char buf[32];
-            snprintf(buf, sizeof(buf), "Count: %d", click_count);
-            lv_label_set_text(ui_counter_label, buf);
+            snprintf(buf, sizeof(buf), "Count 0: %d", Asset.clickCount1);
+            lv_label_set_text(ui_0_counter_label0, buf);
         }
 
-        // Toggle lamp command
-        if (click_count % 2 == 1)
+        Asset.sendLamp1Command = getOnOffState(Asset.clickCount1);
+    }
+}
+
+void on_0_button1_Clicked(lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    if (code == LV_EVENT_CLICKED)
+    {
+        Asset.clickCount2++;
+        printf("Button 1 clicked! Count: %d\n", Asset.clickCount2);
+
+        // Update counter label
+        if (ui_0_counter_label1 != NULL)
         {
-            Asset.sendLamp1Command = "on";
+            char buf[32];
+            snprintf(buf, sizeof(buf), "Count 1: %d", Asset.clickCount2);
+            lv_label_set_text(ui_0_counter_label1, buf);
         }
-        else
-        {
-            Asset.sendLamp1Command = "off";
-        }
+
+        Asset.sendLamp2Command = getOnOffState(Asset.clickCount2);
     }
 }
 
@@ -48,31 +71,39 @@ void ui_Main_screen_init(void)
     lv_obj_align(label, LV_ALIGN_TOP_LEFT, 10, 10);
 
     // Create single button in center of active screen
-    ui_button0 = lv_btn_create(UI_Screens.Main_Screen);
-    lv_obj_align(ui_button0, LV_ALIGN_TOP_LEFT, 10, 40);
-
+    ui_0_button0 = lv_btn_create(UI_Screens.Main_Screen);
+    lv_obj_align(ui_0_button0, LV_ALIGN_TOP_LEFT, 10, 40);
     // Add click event listener to button
-    lv_obj_add_event_cb(ui_button0, on_button0_Clicked, LV_EVENT_CLICKED, NULL);
-
+    lv_obj_add_event_cb(ui_0_button0, on_0_button0_Clicked, LV_EVENT_CLICKED, NULL);
     // Add label to button
-    lv_obj_t *btn_label = lv_label_create(ui_button0);
-    lv_label_set_text(btn_label, "Lamp Office Thomas");
-    lv_obj_set_style_text_font(btn_label, &lv_font_montserrat_30, 0);
-    lv_obj_center(btn_label);
+    lv_obj_t *btn_label0 = lv_label_create(ui_0_button0);
+    lv_label_set_text(btn_label0, "Lamp Office Thomas");
+    lv_obj_set_style_text_font(btn_label0, &lv_font_montserrat_30, 0);
+    lv_obj_center(btn_label0);
 
     // Create counter display label below button
-    ui_counter_label = lv_label_create(UI_Screens.Main_Screen);
-    lv_label_set_text(ui_counter_label, "Count: 0");
-    lv_obj_set_style_text_color(ui_counter_label, lv_color_white(), 0);
+    ui_0_counter_label0 = lv_label_create(UI_Screens.Main_Screen);
+    lv_label_set_text(ui_0_counter_label0, "Count 0: 0");
+    lv_obj_set_style_text_color(ui_0_counter_label0, lv_color_white(), 0);
     // Increase font size by using next available larger font
-    lv_obj_set_style_text_font(ui_counter_label, &lv_font_montserrat_30, 0);
-    lv_obj_align(ui_counter_label, LV_ALIGN_TOP_LEFT, 600, 100);
+    lv_obj_set_style_text_font(ui_0_counter_label0, &lv_font_montserrat_30, 0);
+    lv_obj_align(ui_0_counter_label0, LV_ALIGN_TOP_RIGHT, -10, 40);
+    
+    // Create second button below the first
+    ui_0_button1 = lv_btn_create(UI_Screens.Main_Screen);
+    lv_obj_align(ui_0_button1, LV_ALIGN_TOP_LEFT, 10, 120); // Position below first button
+    // Add click event listener to button
+    lv_obj_add_event_cb(ui_0_button1, on_0_button1_Clicked, LV_EVENT_CLICKED, NULL);
+    // Add label to button
+    lv_obj_t *btn_label1 = lv_label_create(ui_0_button1);
+    lv_label_set_text(btn_label1, "Lamp Wohnzimmer");
+    lv_obj_set_style_text_font(btn_label1, &lv_font_montserrat_30, 0);
+    lv_obj_center(btn_label1);
 
-    // add spinner
-    lv_obj_t *spinner = lv_spinner_create(UI_Screens.Main_Screen, 1000, 60);
-    lv_color_t spinner_blue = lv_color_hex(0x1E90FF); // DodgerBlue
-    lv_obj_set_style_arc_color(spinner, spinner_blue, LV_PART_INDICATOR);
-    lv_obj_set_style_arc_color(spinner, lv_color_hex(0xFF0000), LV_PART_MAIN);
-    lv_obj_align(spinner, LV_ALIGN_TOP_RIGHT, 0, 60);
-    Serial.println("✅ Spinner created");
+    // Create counter display label for second button
+    ui_0_counter_label1 = lv_label_create(UI_Screens.Main_Screen);
+    lv_label_set_text(ui_0_counter_label1, "Count 1: 0");
+    lv_obj_set_style_text_color(ui_0_counter_label1, lv_color_white(), 0);
+    lv_obj_set_style_text_font(ui_0_counter_label1, &lv_font_montserrat_30, 0);
+    lv_obj_align(ui_0_counter_label1, LV_ALIGN_TOP_RIGHT, -10, 120);
 }
