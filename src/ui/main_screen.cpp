@@ -19,9 +19,9 @@ String getOnOffState(int count)
     return "off";
 }
 
-void getText4Count(int x,int count, char *buf)
+void getText4Count(int x,int count, char *buf, int len)
 {
-    snprintf(buf, sizeof(buf), "Count %i: %d : %s", x, count, getOnOffState(count).c_str());
+    snprintf(buf, len, "Count %i: %d : %s", x, count, getOnOffState(count).c_str());
 }
 
 void on_0_button0_Clicked(lv_event_t *e)
@@ -31,7 +31,7 @@ void on_0_button0_Clicked(lv_event_t *e)
     {
         Asset.clickCount1++;
         char buf[32];
-        getText4Count(0, Asset.clickCount1, buf);
+        getText4Count(0, Asset.clickCount1, buf, sizeof(buf));
         printf("Button 0 clicked! : %s\n", buf);
 
         // Update counter label
@@ -51,7 +51,7 @@ void on_0_button1_Clicked(lv_event_t *e)
         Asset.clickCount2++;
 
         char buf[32];
-        getText4Count(1, Asset.clickCount2, buf);
+        getText4Count(1, Asset.clickCount2, buf, sizeof(buf));
         printf("Button 1 clicked! : %s\n", buf);
 
         // Update counter label
@@ -119,13 +119,13 @@ void ui_Main_screen_update(void)
     if (ui_0_counter_label0 != NULL)
     {
         char buf[32];
-        snprintf(buf, sizeof(buf), "Count 0: %d", Asset.clickCount1);
+        getText4Count(0, Asset.clickCount1, buf, sizeof(buf));
         lv_label_set_text(ui_0_counter_label0, buf);
     }
     if (ui_0_counter_label1 != NULL)
     {
         char buf[32];
-        snprintf(buf, sizeof(buf), "Count 1: %d", Asset.clickCount2);
+        getText4Count(1, Asset.clickCount2, buf, sizeof(buf));
         lv_label_set_text(ui_0_counter_label1, buf);
     }
 }
