@@ -3,10 +3,6 @@
 #include "board/init.h"
 #include "ui/ui.h"
 
-
-
-
-
 void setup()
 {
     board_init();

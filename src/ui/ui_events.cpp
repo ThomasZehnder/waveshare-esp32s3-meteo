@@ -26,7 +26,6 @@ void slider_event_cb(lv_event_t *e)
 }
 // Button click event callback
 
-
 void on_button0_Clicked(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
@@ -45,19 +44,23 @@ void on_button0_Clicked(lv_event_t *e)
     }
 }
 
-void on_nav_bar_Main_Screen_Clicked (lv_event_t * e) {
+void on_nav_bar_Main_Screen_Clicked(lv_event_t *e)
+{
     printf("Navigation bar clicked!\n");
     lv_scr_load(ui_Main_Screen);
 }
 
-void on_nav_bar_Screen_1_Clicked(lv_event_t * e) {
+void on_nav_bar_Screen_1_Clicked(lv_event_t *e)
+{
     lv_scr_load(ui_Screen_1);
 }
 
-void on_nav_bar_Screen_2_Clicked(lv_event_t * e) {
+void on_nav_bar_Screen_2_Clicked(lv_event_t *e)
+{
     lv_scr_load(ui_Screen_2);
 }
 
-void on_nav_bar_Service_Screen_Clicked(lv_event_t * e) {
+void on_nav_bar_Service_Screen_Clicked(lv_event_t *e)
+{
     lv_scr_load(ui_Service_Screen);
 }
