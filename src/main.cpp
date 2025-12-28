@@ -2,6 +2,10 @@
 #include <lvgl.h>
 #include "board/init.h"
 #include "ui/ui.h"
+#include "wlan/wlan.h"
+#include "asset.h"
+
+asset_t Asset;
 
 void setup()
 {
@@ -10,7 +14,7 @@ void setup()
     // Initialize LVGL screens
     ui_init();
 
-    //lv_refr_now(NULL);
+    wlan_init(); //WIFI and MQTT
 
     Serial.println("Setup complete!");
 }
@@ -24,6 +28,8 @@ void loop()
     last_tick = now;
 
     lv_timer_handler();
+
+    wlan_loop();
 
     delay(5);
 }
