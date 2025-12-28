@@ -3,7 +3,7 @@
 
 #define MQTT_HOST "192.168.1.2"
 #define MQTT_PORT 1883
-#define MQTT_LOGIN ""
+#define MQTT_USERNAME ""
 #define MQTT_PASSWORD ""
 
 //used as default if configfile is missing
