@@ -82,12 +82,13 @@ void create_navigation_button(lv_obj_t *parent, const char *label_text, lv_align
     lv_obj_t *button = lv_btn_create(parent);
     lv_obj_set_size(button, lv_pct(25), 50);
     lv_obj_align(button, align, x_ofs, y_ofs);
-    lv_obj_set_style_bg_color(button, lv_color_hex(0x1f2937), 0);
+    //lv_obj_set_style_bg_color(button, lv_color_hex(0x1f2937), 0);
     lv_obj_set_style_border_width(button, 0, 0);
 
     // Add label to button
     lv_obj_t *btn_label = lv_label_create(button);
     lv_label_set_text(btn_label, label_text);
+    //lv_obj_set_style_text_font(btn_label, &lv_font_montserrat_30, 0);
     lv_obj_set_style_text_font(btn_label, &lv_font_montserrat_30, 0);
     lv_obj_center(btn_label);
 
@@ -188,7 +189,7 @@ void ui_Screen_1_screen_init(void)
     lv_obj_set_height(ui_label8, 53);
     lv_obj_set_x(ui_label8, 513);
     lv_obj_set_y(ui_label8, 107);
-    lv_obj_set_style_text_color(ui_label8, lv_color_hex(0xe5e7eb), DEFAULT_SELECTOR);
+    lv_obj_set_style_text_color(ui_label8, lv_color_white(), 0);
     lv_obj_set_style_text_font(ui_label8, &lv_font_montserrat_30, DEFAULT_SELECTOR);
 
     slider = lv_slider_create(ui_Screen_1);
@@ -236,7 +237,7 @@ void ui_Screen_2_screen_init(void)
     lv_obj_set_height(ui_label9, 50);
     lv_obj_set_x(ui_label9, 19);
     lv_obj_set_y(ui_label9, 5);
-    lv_obj_set_style_text_color(ui_label9, lv_color_hex(0xe5e7eb), DEFAULT_SELECTOR);
+    lv_obj_set_style_text_color(ui_label9, lv_color_white(), 0);
     lv_obj_set_style_text_font(ui_label9, &lv_font_montserrat_30, DEFAULT_SELECTOR);
 }
 
