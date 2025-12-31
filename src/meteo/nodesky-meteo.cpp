@@ -26,7 +26,11 @@ void storeMeteo(meteo_t &meteo, DynamicJsonDocument &doc)
         {
             meteo.humidity = jsonData["humidity"];
         }
-        Serial.printf("Updated outside temp: %.2f, humidity: %.2f\n", Asset.outside.temperature, Asset.outside.humidity);
+        if (jsonData.containsKey("devicename"))
+        {
+            meteo.deviceName = jsonData["devicename"].as<String>();
+        }
+        Serial.printf("Updated %s temp: %.2f, humidity: %.2f\n", Asset.outside.deviceName.c_str(), Asset.outside.temperature, Asset.outside.humidity);
     }
 }
 

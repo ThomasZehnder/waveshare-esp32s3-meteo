@@ -2,6 +2,7 @@
 
 struct meteo_t
 {
+    String deviceName = "???";
     float temperature = -111.0;
     float humidity = -111.0;
 };
