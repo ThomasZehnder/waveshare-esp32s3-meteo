@@ -3,7 +3,7 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include "asset.h"
-#include "wlan/credentials.h"
+#include "credentials.h"
 
 static int getState = 0;
 
