@@ -190,7 +190,7 @@ void ui_Main_screen_update(void)
         if (ui_0_temperature_label != NULL)
         {
             char buf[32];
-            snprintf(buf, sizeof(buf), "Temp Office Thomas: %.1f °C", Asset.room1_settemperature);
+            snprintf(buf, sizeof(buf), "Office Thomas: %.1f °C", Asset.room1_settemperature);
             lv_label_set_text(ui_0_temperature_label, buf);
         }
     }
