@@ -42,6 +42,9 @@ void onMqttConnect(bool sessionPresent)
     // subscribe lamp commands
     mqttSubscribe("home/lamp1/cmd");
     mqttSubscribe("home/lamp2/cmd");
+
+    //subscribe heater office
+    mqttSubscribe("home/room1/settemperature");
 }
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason)
 {
@@ -150,6 +153,13 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
         Serial.println("  --> Lamp 2 CMD received: " + String(s) + " - " + topic);
         Asset.clickCount2 =_getState4Counter(s);
     }
+
+    if (mqttCheckTopic(("home/room1/settemperature"), topic))
+    {
+        Serial.println("  --> Room Office Temperature: " + String(s) + " - " + topic);
+        // TO DO: set temperature value
+        Asset.room1_settemperature = String(s).toFloat();
+    }
 }
 
 void onMqttPublish(uint16_t packetId)
@@ -202,7 +212,7 @@ void mqttPublishLong(const char *topic, long x)
     Serial.print("Publish Long: ");
     Serial.print(t);
     Serial.print(" : ");
-    Serial.println(x);
+    Serial.println(s);
 }
 void mqttPublishString(const char *topic, String s)
 {
@@ -215,6 +225,22 @@ void mqttPublishString(const char *topic, String s)
 
     // Serial.println("Publishing String at QoS 0");
     Serial.print("Publish String: ");
+    Serial.print(t);
+    Serial.print(" : ");
+    Serial.println(s);
+}
+
+void mqttPublishReal(const char *topic, float x)
+{
+    char s[200];
+    dtostrf(x, 6, 2, s );
+    String t = _generateTopic(topic);
+    String v = _generateValue(topic, s);
+
+    mqttClient.publish(t.c_str(), 0, true, v.c_str());
+
+    // Serial.println("Publishing long at QoS 0");
+    Serial.print("Publish Real: ");
     Serial.print(t);
     Serial.print(" : ");
     Serial.println(s);
@@ -280,6 +306,11 @@ void mqtt_loop()
             mqttPublishString("home/lamp2/cmd", Asset.sendLamp2Command);
             mqttPublishString("*/lamp2/cmd", Asset.sendLamp2Command);
             Asset.sendLamp2Command = "";
+        }
+        if (Asset.sendTemperatureCommand == "sendMqtt"){
+            mqttPublishReal("home/room1/settemperature", Asset.room1_settemperature); // e.g. 215 means 21.5 degree
+            mqttPublishReal("*/room1/settemperature", Asset.room1_settemperature);
+            Asset.sendTemperatureCommand = "";
         }
     }
 }

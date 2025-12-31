@@ -12,6 +12,9 @@ struct asset_t
 
     int clickCount1 = 0;
     int clickCount2 = 0;
+
+    float room1_settemperature = -111.0; //default value
+    String sendTemperatureCommand = "";
 };
 
 extern asset_t Asset;
