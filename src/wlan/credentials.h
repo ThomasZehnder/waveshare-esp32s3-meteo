@@ -10,4 +10,9 @@
 #define WIFI_SSID "zhs_22_wil"
 #define WIFI_PASSWORD "T16E18P22L21"
 
+#define NODESKY_URL "https://zhs.ch/nodesky_001/services/device?id="
+#define NODESKY_OUTSIDE_DEVICE_ID "16021965"
+
+
+
 

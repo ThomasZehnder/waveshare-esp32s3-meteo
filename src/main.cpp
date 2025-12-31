@@ -4,6 +4,7 @@
 #include "ui/ui.h"
 #include "wlan/wlan.h"
 #include "wlan/mqtt.h"
+#include "meteo/nodesky-meteo.h"
 #include "asset.h"
 
 asset_t Asset;
@@ -16,6 +17,8 @@ void setup()
     ui_init();
 
     wlan_init(); //WIFI and MQTT
+
+    meteo_init();
 
     Serial.println("Setup complete!");
 }
@@ -36,6 +39,7 @@ void loop()
         lv_timer_handler();
         wlan_loop();
         ui_loop();
+        meteo_loop();
         last_task_time = now;
     }
 

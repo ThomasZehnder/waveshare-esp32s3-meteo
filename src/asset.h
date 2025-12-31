@@ -1,5 +1,11 @@
 #pragma once
 
+struct meteo_t
+{
+    float temperature = -111.0;
+    float humidity = -111.0;
+};
+
 struct asset_t
 {
     String deviceId = "ESP32S3_Meteo_001";
@@ -15,6 +21,10 @@ struct asset_t
 
     float room1_settemperature = -111.0; //default value
     String sendTemperatureCommand = "";
+
+    // weather data
+    meteo_t outside;
+    meteo_t inside;
 
     bool UpdateUI_Screen = false;
 };
