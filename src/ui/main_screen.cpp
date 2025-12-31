@@ -154,28 +154,30 @@ void ui_Main_screen_init(void)
     lv_obj_align(ui_0_counter_label1, LV_ALIGN_TOP_RIGHT, -10, 120);
 
     // Buttons to increase and decrease temperature
-    ui_0_button_temp_up = lv_btn_create(UI_Screens.Main_Screen);
-    lv_obj_align(ui_0_button_temp_up, LV_ALIGN_BOTTOM_LEFT, 10, -60);
-    lv_obj_t *btn_label_temp_up = lv_label_create(ui_0_button_temp_up);
-    lv_label_set_text(btn_label_temp_up, "Temp +");
-    lv_obj_set_style_text_font(btn_label_temp_up, &lv_font_montserrat_30, 0);
-    lv_obj_center(btn_label_temp_up);
-    lv_obj_add_event_cb(ui_0_button_temp_up, on_0_button_temp_up_Clicked, LV_EVENT_CLICKED, NULL);
-
-    ui_0_button_temp_down = lv_btn_create(UI_Screens.Main_Screen);
-    lv_obj_align(ui_0_button_temp_down, LV_ALIGN_BOTTOM_RIGHT, -10, -60);
+        ui_0_button_temp_down = lv_btn_create(UI_Screens.Main_Screen);
+    lv_obj_align(ui_0_button_temp_down, LV_ALIGN_TOP_LEFT, 10 , 200);
     lv_obj_t *btn_label_temp_down = lv_label_create(ui_0_button_temp_down);
     lv_label_set_text(btn_label_temp_down, "Temp -");
     lv_obj_set_style_text_font(btn_label_temp_down, &lv_font_montserrat_30, 0);
     lv_obj_center(btn_label_temp_down);
     lv_obj_add_event_cb(ui_0_button_temp_down, on_0_button_temp_down_Clicked, LV_EVENT_CLICKED, NULL);
 
+    ui_0_button_temp_up = lv_btn_create(UI_Screens.Main_Screen);
+    lv_obj_align(ui_0_button_temp_up, LV_ALIGN_TOP_LEFT, 10 + 200, 200);
+    lv_obj_t *btn_label_temp_up = lv_label_create(ui_0_button_temp_up);
+    lv_label_set_text(btn_label_temp_up, "Temp +");
+    lv_obj_set_style_text_font(btn_label_temp_up, &lv_font_montserrat_30, 0);
+    lv_obj_center(btn_label_temp_up);
+    lv_obj_add_event_cb(ui_0_button_temp_up, on_0_button_temp_up_Clicked, LV_EVENT_CLICKED, NULL);
+
+
+
     // create label to show temperature
     ui_0_temperature_label = lv_label_create(UI_Screens.Main_Screen);
     lv_label_set_text(ui_0_temperature_label, "Temp: --.- C");
     lv_obj_set_style_text_color(ui_0_temperature_label, lv_color_white(), 0);
     lv_obj_set_style_text_font(ui_0_temperature_label, &lv_font_montserrat_30, 0);
-    lv_obj_align(ui_0_temperature_label, LV_ALIGN_BOTTOM_MID, 0, -20);
+    lv_obj_align(ui_0_temperature_label, LV_ALIGN_TOP_RIGHT, -10, 200);
 }
 
 void ui_Main_screen_update(void)
@@ -196,7 +198,7 @@ void ui_Main_screen_update(void)
     if (ui_0_temperature_label != NULL)
     {
         char buf[32];
-        snprintf(buf, sizeof(buf), "Temp: %.1f C", Asset.room1_settemperature);
+        snprintf(buf, sizeof(buf), "Temp: %.1f °C", Asset.room1_settemperature);
         lv_label_set_text(ui_0_temperature_label, buf);
     }
 }
