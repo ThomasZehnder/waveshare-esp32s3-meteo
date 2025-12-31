@@ -12,6 +12,7 @@
 
 #define NODESKY_URL "https://zhs.ch/nodesky_001/services/device?id="
 #define NODESKY_OUTSIDE_DEVICE_ID "16021965"
+#define NODESKY_INSIDE_DEVICE_ID "ibdle956fr"
 
 
 
