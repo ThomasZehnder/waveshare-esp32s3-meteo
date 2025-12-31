@@ -147,11 +147,13 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     {
         Serial.println("  --> Lamp 1 CMD received: " + String(s) + " - " + topic);
         Asset.clickCount1 =_getState4Counter(s);
+        Asset.UpdateUI_Screen = true;
     }
     if (mqttCheckTopic(("home/lamp2/cmd"), topic))
     {
         Serial.println("  --> Lamp 2 CMD received: " + String(s) + " - " + topic);
         Asset.clickCount2 =_getState4Counter(s);
+        Asset.UpdateUI_Screen = true;
     }
 
     if (mqttCheckTopic(("home/room1/settemperature"), topic))
@@ -159,6 +161,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
         Serial.println("  --> Room Office Temperature: " + String(s) + " - " + topic);
         // TO DO: set temperature value
         Asset.room1_settemperature = String(s).toFloat();
+        Asset.UpdateUI_Screen = true;
     }
 }
 

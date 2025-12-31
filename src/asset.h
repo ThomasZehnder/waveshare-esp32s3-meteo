@@ -15,6 +15,8 @@ struct asset_t
 
     float room1_settemperature = -111.0; //default value
     String sendTemperatureCommand = "";
+
+    bool UpdateUI_Screen = false;
 };
 
 extern asset_t Asset;

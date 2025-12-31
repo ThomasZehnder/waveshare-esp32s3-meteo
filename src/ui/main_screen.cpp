@@ -34,6 +34,7 @@ void on_0_button0_Clicked(lv_event_t *e)
     if (code == LV_EVENT_CLICKED)
     {
         Asset.clickCount1++;
+        Asset.UpdateUI_Screen = true;
         char buf[32];
         getText4Count(0, Asset.clickCount1, buf, sizeof(buf));
         printf("Button 0 clicked! : %s\n", buf);
@@ -53,6 +54,7 @@ void on_0_button1_Clicked(lv_event_t *e)
     if (code == LV_EVENT_CLICKED)
     {
         Asset.clickCount2++;
+        Asset.UpdateUI_Screen = true;
 
         char buf[32];
         getText4Count(1, Asset.clickCount2, buf, sizeof(buf));
@@ -77,13 +79,7 @@ void on_0_button_temp_up_Clicked(lv_event_t *e)
         // Increase temperature by 1 degree
         Asset.room1_settemperature += 1;
         Asset.sendTemperatureCommand = "sendMqtt";
-        // Update temperature label
-        if (ui_0_temperature_label != NULL)
-        {
-            char buf[32];
-            snprintf(buf, sizeof(buf), "Temp: %.1f C", Asset.room1_settemperature);
-            lv_label_set_text(ui_0_temperature_label, buf);
-        }
+        Asset.UpdateUI_Screen = true;
     }
 }
 void on_0_button_temp_down_Clicked(lv_event_t *e)
@@ -95,13 +91,7 @@ void on_0_button_temp_down_Clicked(lv_event_t *e)
         // Decrease temperature by 1 degree
         Asset.room1_settemperature -= 1;
         Asset.sendTemperatureCommand = "sendMqtt";
-        // Update temperature label
-        if (ui_0_temperature_label != NULL)
-        {
-            char buf[32];
-            snprintf(buf, sizeof(buf), "Temp: %.1f C", Asset.room1_settemperature);
-            lv_label_set_text(ui_0_temperature_label, buf);
-        }
+        Asset.UpdateUI_Screen = true;
     }
 }
 
@@ -154,8 +144,8 @@ void ui_Main_screen_init(void)
     lv_obj_align(ui_0_counter_label1, LV_ALIGN_TOP_RIGHT, -10, 120);
 
     // Buttons to increase and decrease temperature
-        ui_0_button_temp_down = lv_btn_create(UI_Screens.Main_Screen);
-    lv_obj_align(ui_0_button_temp_down, LV_ALIGN_TOP_LEFT, 10 , 200);
+    ui_0_button_temp_down = lv_btn_create(UI_Screens.Main_Screen);
+    lv_obj_align(ui_0_button_temp_down, LV_ALIGN_TOP_LEFT, 10, 200);
     lv_obj_t *btn_label_temp_down = lv_label_create(ui_0_button_temp_down);
     lv_label_set_text(btn_label_temp_down, "Temp -");
     lv_obj_set_style_text_font(btn_label_temp_down, &lv_font_montserrat_30, 0);
@@ -170,8 +160,6 @@ void ui_Main_screen_init(void)
     lv_obj_center(btn_label_temp_up);
     lv_obj_add_event_cb(ui_0_button_temp_up, on_0_button_temp_up_Clicked, LV_EVENT_CLICKED, NULL);
 
-
-
     // create label to show temperature
     ui_0_temperature_label = lv_label_create(UI_Screens.Main_Screen);
     lv_label_set_text(ui_0_temperature_label, "Temp: --.- C");
@@ -183,22 +171,27 @@ void ui_Main_screen_init(void)
 void ui_Main_screen_update(void)
 {
     // Update counter labels
-    if (ui_0_counter_label0 != NULL)
+    if (Asset.UpdateUI_Screen == true)
     {
-        char buf[32];
-        getText4Count(0, Asset.clickCount1, buf, sizeof(buf));
-        lv_label_set_text(ui_0_counter_label0, buf);
-    }
-    if (ui_0_counter_label1 != NULL)
-    {
-        char buf[32];
-        getText4Count(1, Asset.clickCount2, buf, sizeof(buf));
-        lv_label_set_text(ui_0_counter_label1, buf);
-    }
-    if (ui_0_temperature_label != NULL)
-    {
-        char buf[32];
-        snprintf(buf, sizeof(buf), "Temp: %.1f °C", Asset.room1_settemperature);
-        lv_label_set_text(ui_0_temperature_label, buf);
+        Asset.UpdateUI_Screen = false;
+
+        if (ui_0_counter_label0 != NULL)
+        {
+            char buf[32];
+            getText4Count(0, Asset.clickCount1, buf, sizeof(buf));
+            lv_label_set_text(ui_0_counter_label0, buf);
+        }
+        if (ui_0_counter_label1 != NULL)
+        {
+            char buf[32];
+            getText4Count(1, Asset.clickCount2, buf, sizeof(buf));
+            lv_label_set_text(ui_0_counter_label1, buf);
+        }
+        if (ui_0_temperature_label != NULL)
+        {
+            char buf[32];
+            snprintf(buf, sizeof(buf), "Temp Office Thomas: %.1f °C", Asset.room1_settemperature);
+            lv_label_set_text(ui_0_temperature_label, buf);
+        }
     }
 }
