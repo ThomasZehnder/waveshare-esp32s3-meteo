@@ -26,41 +26,27 @@ void slider_event_cb(lv_event_t *e)
 }
 // Button click event callback
 
-void on_button0_Clicked(lv_event_t *e)
-{
-    lv_event_code_t code = lv_event_get_code(e);
-    if (code == LV_EVENT_CLICKED)
-    {
-        click_count++;
-        printf("Button clicked! Count: %d\n", click_count);
-
-        // Update counter label
-        if (counter_label != NULL)
-        {
-            char buf[32];
-            snprintf(buf, sizeof(buf), "Count: %d", click_count);
-            lv_label_set_text(counter_label, buf);
-        }
-    }
-}
 
 void on_nav_bar_Main_Screen_Clicked(lv_event_t *e)
 {
-    printf("Navigation bar clicked!\n");
-    lv_scr_load(ui_Main_Screen);
+    UI_Screens.active_screen = SCREEN_ID_Main_Screen;
+    lv_scr_load(UI_Screens.Main_Screen);
 }
 
 void on_nav_bar_Screen_1_Clicked(lv_event_t *e)
 {
-    lv_scr_load(ui_Screen_1);
+    UI_Screens.active_screen = SCREEN_ID_Screen_1;
+    lv_scr_load(UI_Screens.Screen_1);
 }
 
 void on_nav_bar_Screen_2_Clicked(lv_event_t *e)
 {
-    lv_scr_load(ui_Screen_2);
+    UI_Screens.active_screen = SCREEN_ID_Screen_2;
+    lv_scr_load(UI_Screens.Screen_2);
 }
 
 void on_nav_bar_Service_Screen_Clicked(lv_event_t *e)
 {
-    lv_scr_load(ui_Service_Screen);
+    UI_Screens.active_screen = SCREEN_ID_Service_Screen;
+    lv_scr_load(UI_Screens.Service_Screen);
 }

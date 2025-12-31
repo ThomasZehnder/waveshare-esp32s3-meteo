@@ -2,6 +2,11 @@
 #include <lvgl.h>
 #include "board/init.h"
 #include "ui/ui.h"
+#include "wlan/wlan.h"
+#include "wlan/mqtt.h"
+#include "asset.h"
+
+asset_t Asset;
 
 void setup()
 {
@@ -10,13 +15,14 @@ void setup()
     // Initialize LVGL screens
     ui_init();
 
-    //lv_refr_now(NULL);
+    wlan_init(); //WIFI and MQTT
 
     Serial.println("Setup complete!");
 }
 
 void loop()
 {
+    static uint32_t last_task_time = 0;
     static uint32_t last_tick = millis();
 
     uint32_t now = millis();
@@ -24,6 +30,16 @@ void loop()
     last_tick = now;
 
     lv_timer_handler();
+
+    // Schedule tasks every 500ms
+    if (now - last_task_time >= 500) {
+        lv_timer_handler();
+        wlan_loop();
+        ui_loop();
+        last_task_time = now;
+    }
+
+    mqtt_loop();
 
     delay(5);
 }
