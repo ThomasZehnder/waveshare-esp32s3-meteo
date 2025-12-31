@@ -39,11 +39,12 @@ void loop()
         lv_timer_handler();
         wlan_loop();
         ui_loop();
-        meteo_loop();
         last_task_time = now;
     }
 
     mqtt_loop();
+
+    meteo_loop();
 
     delay(5);
 }

@@ -12,6 +12,7 @@ static const char *URL_INSIDE = NODESKY_URL NODESKY_INSIDE_DEVICE_ID;
 
 static uint32_t last_fetch_time = 0;
 static const uint32_t FETCH_INTERVAL = 10000; // 10 seconds
+static bool first_run = true;
 
 void storeMeteo(meteo_t &meteo, DynamicJsonDocument &doc)
 {
@@ -37,14 +38,15 @@ void storeMeteo(meteo_t &meteo, DynamicJsonDocument &doc)
 void meteo_init()
 {
     // Initialization if needed
-    last_fetch_time = -10 * FETCH_INTERVAL; // Fetch immediately on first loop
+    first_run = true;
 }
 
 void meteo_loop()
 {
     uint32_t now = millis();
-    if (now - last_fetch_time >= FETCH_INTERVAL)
+    if (first_run || now - last_fetch_time >= FETCH_INTERVAL)
     {
+        first_run = false;
         last_fetch_time = now;
 
         String URL = String(URL_OUTSIDE);
@@ -57,6 +59,7 @@ void meteo_loop()
         {
             URL = String(URL_INSIDE);
         }
+        Serial.println("HTTP Fetch: " + URL);
 
         HTTPClient http;
         http.begin(URL);
