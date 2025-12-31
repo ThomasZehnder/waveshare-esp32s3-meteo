@@ -25,13 +25,17 @@ void ui_Service_Screen_init(void)
     lv_obj_align(connect_status_label, LV_ALIGN_TOP_LEFT, 0, 20);
 
     //show WiFi status
+    char buf[128];
+    snprintf(buf, sizeof(buf), "Meteo Outside: DeviceName: %s, Temp: %.2f, Hum: %.2f", Asset.outside.deviceName.c_str(), Asset.outside.temperature, Asset.outside.humidity);
     meteo_outside_label = lv_label_create(UI_Screens.Service_Screen);   
-    lv_label_set_text_fmt(meteo_outside_label, "Meteo Outside: DeviceName: %s, Temp: %f, Hum: %f", Asset.outside.deviceName.c_str(), Asset.outside.temperature, Asset.outside.humidity);
+    lv_label_set_text(meteo_outside_label, buf);
     lv_obj_align(meteo_outside_label, LV_ALIGN_TOP_LEFT, 0, 40);    
 
     //show MQTT status
+    char buf_inside[128];
+    snprintf(buf_inside, sizeof(buf_inside), "Meteo Inside: DeviceName: %s, Temp: %.2f, Hum: %.2f", Asset.inside.deviceName.c_str(), Asset.inside.temperature, Asset.inside.humidity);
     meteo_inside_label = lv_label_create(UI_Screens.Service_Screen);   
-    lv_label_set_text_fmt(meteo_inside_label, "Meteo Inside: DeviceName: %s, Temp: %f, Hum: %f", Asset.inside.deviceName.c_str(), Asset.inside.temperature, Asset.inside.humidity);
+    lv_label_set_text(meteo_inside_label, buf_inside);
     lv_obj_align(meteo_inside_label, LV_ALIGN_TOP_LEFT, 0, 60);    
 
 }
@@ -39,6 +43,10 @@ void ui_Service_Screen_init(void)
 void ui_Service_Screen_update(void)
 {
     lv_label_set_text_fmt(connect_status_label, "IP Address: %s, WiFi Connected: %s, MQTT Connected: %s", Asset.ipAddr.c_str(), Asset.wifiConnected ? "Yes" : "No", Asset.mqttConnected ? "Yes" : "No");
-    lv_label_set_text_fmt(meteo_outside_label, "Meteo Outside: DeviceName: %s, Temp: %f, Hum: %f", Asset.outside.deviceName.c_str(), Asset.outside.temperature, Asset.outside.humidity);
-    lv_label_set_text_fmt(meteo_inside_label, "Meteo Inside: DeviceName: %s, Temp: %f, Hum: %f", Asset.inside.deviceName.c_str(), Asset.inside.temperature, Asset.inside.humidity);
+    char buf_out[128];
+    snprintf(buf_out, sizeof(buf_out), "Meteo Outside: DeviceName: %s, Temp: %.2f, Hum: %.2f", Asset.outside.deviceName.c_str(), Asset.outside.temperature, Asset.outside.humidity);
+    lv_label_set_text(meteo_outside_label, buf_out);
+    char buf_in[128];
+    snprintf(buf_in, sizeof(buf_in), "Meteo Inside: DeviceName: %s, Temp: %.2f, Hum: %.2f", Asset.inside.deviceName.c_str(), Asset.inside.temperature, Asset.inside.humidity);
+    lv_label_set_text(meteo_inside_label, buf_in);
 }   

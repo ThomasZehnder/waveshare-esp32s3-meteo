@@ -88,7 +88,7 @@ void meteo_loop()
                 }
                 else if (getState == 1)
                 {
-                    storeMeteo(Asset.outside, doc);
+                    storeMeteo(Asset.inside, doc);
                 }
             }
         }
