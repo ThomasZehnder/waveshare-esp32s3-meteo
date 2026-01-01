@@ -60,11 +60,6 @@ ui_screen_def_t UI_Screens;
 
 lv_obj_t *nav_bar;
 
-lv_obj_t *value_label;
-lv_obj_t *slider;
-
-
-
 /////////////////////
 lv_color_t lv_color_red(void)
 {
@@ -93,8 +88,8 @@ void create_navigation_button(lv_obj_t *parent, const char *label_text, lv_align
 void create_navigation_bar(lv_obj_t *parent)
 {
     create_navigation_button(parent, "HOME", LV_ALIGN_BOTTOM_LEFT, 0, 0, on_nav_bar_Main_Screen_Clicked);
-    create_navigation_button(parent, "VALUES", LV_ALIGN_BOTTOM_LEFT, lv_pct(25), 0, on_nav_bar_Local_Screen_Clicked);
-    create_navigation_button(parent, "Screen 2", LV_ALIGN_BOTTOM_LEFT, lv_pct(50), 0, on_nav_bar_Screen_2_Clicked);
+    create_navigation_button(parent, "LOCALS", LV_ALIGN_BOTTOM_LEFT, lv_pct(25), 0, on_nav_bar_Local_Screen_Clicked);
+    create_navigation_button(parent, "FORCAST", LV_ALIGN_BOTTOM_LEFT, lv_pct(50), 0, on_nav_bar_Screen_2_Clicked);
     create_navigation_button(parent, "SERVICE", LV_ALIGN_BOTTOM_LEFT, lv_pct(75), 0, on_nav_bar_Service_Screen_Clicked);
 }
 
@@ -113,50 +108,6 @@ void ui_create_main_elements(lv_obj_t *parent)
 // SCREEN FUNCTIONS
 /////////////////////
 
-void ui_Screen_2_screen_init(void)
-{
-    UI_Screens.Screen_2 = lv_obj_create(NULL);
-    ui_create_main_elements(UI_Screens.Screen_2);
-
-    lv_obj_t *ui_inputfield6 = lv_textarea_create(UI_Screens.Screen_2);
-    lv_obj_set_size(ui_inputfield6, 235, 50);
-    lv_obj_align(ui_inputfield6, LV_ALIGN_TOP_LEFT, 181, 55);
-    lv_textarea_set_one_line(ui_inputfield6, true);
-    lv_textarea_set_text(ui_inputfield6, "InputField");
-
-    lv_obj_t *ui_label9 = lv_label_create(UI_Screens.Screen_2);
-    lv_label_set_text(ui_label9, "Screen 2");
-    lv_obj_set_width(ui_label9, 430);
-    lv_obj_set_height(ui_label9, 50);
-    lv_obj_set_x(ui_label9, 19);
-    lv_obj_set_y(ui_label9, 5);
-    lv_obj_set_style_text_color(ui_label9, lv_color_white(), 0);
-    lv_obj_set_style_text_font(ui_label9, &lv_font_montserrat_30, DEFAULT_SELECTOR);
-
-     slider = lv_slider_create(UI_Screens.Screen_2);
-    lv_obj_set_width(slider, 600);
-    lv_obj_align(slider, LV_ALIGN_CENTER, 0, 80);
-    lv_slider_set_range(slider, 0, 100);
-    lv_slider_set_value(slider, 50, LV_ANIM_OFF);
-    lv_obj_add_event_cb(slider, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
-
-    value_label = lv_label_create(UI_Screens.Screen_2);
-    lv_label_set_text_fmt(value_label, "%d%%", lv_slider_get_value(slider));
-    lv_obj_set_style_text_font(value_label, &lv_font_montserrat_30, 0);
-    lv_obj_set_style_text_color(value_label, lv_color_hex(0xFF0000), 0);
-    lv_obj_align(value_label, LV_ALIGN_CENTER, 0, 150);
-
-    lv_obj_t *btn = lv_btn_create(UI_Screens.Screen_2);
-    lv_obj_set_size(btn, 200, 50);
-    lv_obj_align(btn, LV_ALIGN_CENTER, 0, 0);
-    lv_obj_t *btn_label = lv_label_create(btn);
-    lv_label_set_text(btn_label, "Click Me");
-    lv_obj_set_style_text_font(btn_label, &lv_font_montserrat_30, LV_PART_MAIN); // for the button text
-    lv_obj_center(btn_label);
-    lv_obj_add_event_cb(btn, [](lv_event_t *e)
-                        { Serial.println("🎉 Button clicked!"); }, LV_EVENT_CLICKED, NULL);
-}
-
 
 
 /////////////////////
@@ -167,7 +118,7 @@ void ui_init(void)
     ui_styles_init();
     ui_Main_screen_init();
     ui_Local_screen_init();
-    ui_Screen_2_screen_init();
+    ui_Forecast_screen_init();
     ui_Service_Screen_init();
     lv_scr_load(UI_Screens.Main_Screen);
 }
@@ -177,4 +128,5 @@ void ui_init(void)
      ui_Main_screen_update();
      ui_Local_screen_update();
      ui_Service_Screen_update();
+     ui_Forcast_screen_update();
  }

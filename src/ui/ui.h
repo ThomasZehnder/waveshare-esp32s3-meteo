@@ -14,7 +14,7 @@ struct ui_screen_def_t
 {
     lv_obj_t *Main_Screen;
     lv_obj_t *Local_Screen;
-    lv_obj_t *Screen_2;
+    lv_obj_t *Forecast_Screen;
     lv_obj_t *Service_Screen;
 
     active_screen_t active_screen;
@@ -43,6 +43,8 @@ void ui_Main_screen_init(void);
 void ui_Main_screen_update(void);
 void ui_Local_screen_init(void);
 void ui_Local_screen_update(void);
+void ui_Forecast_screen_init(void);
+void ui_Forcast_screen_update(void);
 
 // forward
 const lv_style_selector_t DEFAULT_SELECTOR = (lv_style_selector_t)(LV_PART_MAIN | LV_STATE_DEFAULT);
