@@ -43,17 +43,17 @@ void ui_Forecast_screen_init(void)
     lv_obj_set_style_bg_color(ui_2_table, lv_color_hex(0x000000), LV_PART_ITEMS);
     lv_table_set_col_cnt(ui_2_table, 5);
     lv_table_set_row_cnt(ui_2_table, NUM_FORECAST_DAYS + 1); // +1 for header row
+    lv_obj_set_scrollbar_mode(ui_2_table, LV_SCROLLBAR_MODE_OFF);
     // set table with of table
     lv_obj_set_width(ui_2_table, 800);
     // set first colum width
-    lv_table_set_col_width(ui_2_table, 0, 800- 4* VALUECELLWIDTH);
+    lv_table_set_col_width(ui_2_table, 0, 800 - 4 * VALUECELLWIDTH);
     lv_table_set_col_width(ui_2_table, 1, VALUECELLWIDTH);
     lv_table_set_col_width(ui_2_table, 2, VALUECELLWIDTH);
     lv_table_set_col_width(ui_2_table, 3, VALUECELLWIDTH);
     lv_table_set_col_width(ui_2_table, 4, VALUECELLWIDTH);
-    //set cell margin
+    // set cell margin
     lv_obj_set_style_pad_all(ui_2_table, 5, LV_PART_ITEMS);
-
 }
 
 void ui_Forcast_screen_update(void)
