@@ -43,7 +43,6 @@ void slider_event_cb(lv_event_t *e);
 // INTERNAL variables
 /////////////////////
 
-
 /////////////////////
 // ASSETS
 /////////////////////
@@ -108,8 +107,6 @@ void ui_create_main_elements(lv_obj_t *parent)
 // SCREEN FUNCTIONS
 /////////////////////
 
-
-
 /////////////////////
 // MAIN UI FUNCTION
 /////////////////////
@@ -122,11 +119,15 @@ void ui_init(void)
     ui_Service_Screen_init();
     lv_scr_load(UI_Screens.Main_Screen);
 }
- void ui_loop(void)
- {
-     // Placeholder for any periodic UI updates if needed
-     ui_Main_screen_update();
-     ui_Local_screen_update();
-     ui_Service_Screen_update();
-     ui_Forcast_screen_update();
- }
+void ui_loop(void)
+{
+    if (Asset.UpdateUI_Screen == true)
+    {
+        Asset.UpdateUI_Screen = false;
+
+        ui_Main_screen_update();
+        ui_Local_screen_update();
+        ui_Service_Screen_update();
+        ui_Forcast_screen_update();
+    }
+}

@@ -5,6 +5,7 @@ lv_obj_t *ui_2_table;
 
 void updateTableWithForecastData(lv_obj_t *table)
 {
+    Serial.println("Updating forecast table UI");
     // Set header row
     lv_table_set_cell_value(table, 0, 0, "Day");
     lv_table_set_cell_value(table, 0, 1, "Min Temp (°C)");
@@ -37,7 +38,11 @@ void ui_Forecast_screen_init(void)
     ui_2_table = lv_table_create(UI_Screens.Forecast_Screen);
     lv_obj_align(ui_2_table, LV_ALIGN_TOP_MID, 0, 40);
     //set font for table
-    lv_obj_set_style_text_font(ui_2_table, &lv_font_montserrat_20, DEFAULT_SELECTOR);
+    lv_obj_set_style_text_font(ui_2_table, &lv_font_unscii_16 , DEFAULT_SELECTOR);
+    //set background color for table
+    //lv_obj_set_style_bg_color(ui_2_table, lv_color_hex(0x000000), DEFAULT_SELECTOR);
+    //set background color for table cells
+    lv_obj_set_style_bg_color(ui_2_table, lv_color_hex(0x000000), LV_PART_ITEMS);
     lv_table_set_col_cnt(ui_2_table, 5);
     lv_table_set_row_cnt(ui_2_table, NUM_FORECAST_DAYS + 1); // +1 for header row
 }
@@ -45,9 +50,8 @@ void ui_Forecast_screen_init(void)
 void ui_Forcast_screen_update(void)
 {
     // Update slider value label
-    if ((ui_2_table != NULL)&&(Asset.UpdateUI_Screen))
+    if (ui_2_table != NULL)
     {
-        Asset.UpdateUI_Screen = false;
         updateTableWithForecastData(ui_2_table);
     }
 }
