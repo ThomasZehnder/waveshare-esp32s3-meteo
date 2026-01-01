@@ -45,6 +45,4 @@ void ui_Local_screen_init(void);
 void ui_Local_screen_update(void);
 
 // forward
-void getMeteoString(char *buf, size_t bufsize, const char *prefix, const meteo_t &meteo);
-
 const lv_style_selector_t DEFAULT_SELECTOR = (lv_style_selector_t)(LV_PART_MAIN | LV_STATE_DEFAULT);
