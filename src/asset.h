@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Arduino.h"
+
 struct meteo_t
 {
     String deviceName = "???";

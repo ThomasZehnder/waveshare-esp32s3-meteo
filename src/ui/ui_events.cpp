@@ -10,6 +10,7 @@
 
 #include "ui.h"
 
+
 void slider_event_cb(lv_event_t *e)
 {
     lv_obj_t *slider = lv_event_get_target(e);
@@ -24,6 +25,9 @@ void slider_event_cb(lv_event_t *e)
         Serial.printf("Slider value: %d (label not ready)\n", value);
     }
 }
+    
+
+    
 // Button click event callback
 
 
@@ -33,10 +37,10 @@ void on_nav_bar_Main_Screen_Clicked(lv_event_t *e)
     lv_scr_load(UI_Screens.Main_Screen);
 }
 
-void on_nav_bar_Screen_1_Clicked(lv_event_t *e)
+void on_nav_bar_Local_Screen_Clicked(lv_event_t *e)
 {
-    UI_Screens.active_screen = SCREEN_ID_Screen_1;
-    lv_scr_load(UI_Screens.Screen_1);
+    UI_Screens.active_screen = SCREEN_ID_Local_Screen;
+    lv_scr_load(UI_Screens.Local_Screen);
 }
 
 void on_nav_bar_Screen_2_Clicked(lv_event_t *e)
