@@ -35,6 +35,7 @@ void storeMeteo(meteo_t &meteo, DynamicJsonDocument &doc)
             meteo.deviceName = jsonData["devicename"].as<String>();
         }
         Serial.printf("Updated %s temp: %.2f, humidity: %.2f\n", Asset.outside.deviceName.c_str(), Asset.outside.temperature, Asset.outside.humidity);
+        Asset.UpdateUI_Screen = true;
     }
 }
 
@@ -80,6 +81,7 @@ void storeForcastMeteo(DynamicJsonDocument &doc)
         Asset.forecast.precipitation_sum[i] = doc["daily"]["precipitation_sum"][i];
         Asset.forecast.wind_speed_10m_max[i] = doc["daily"]["wind_speed_10m_max"][i];
     }   
+    Asset.UpdateUI_Screen = true;
 }
 
 void meteo_init()
