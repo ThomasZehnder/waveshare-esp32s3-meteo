@@ -38,7 +38,7 @@ void ui_Forecast_screen_init(void)
     ui_2_table = lv_table_create(UI_Screens.Forecast_Screen);
     lv_obj_align(ui_2_table, LV_ALIGN_TOP_MID, 0, 40);
     // set font for table
-    lv_obj_set_style_text_font(ui_2_table, &lv_font_unscii_16, DEFAULT_SELECTOR);
+    lv_obj_set_style_text_font(ui_2_table, &lv_font_montserrat_16, DEFAULT_SELECTOR);
     // set background color for table cells
     lv_obj_set_style_bg_color(ui_2_table, lv_color_hex(0x000000), LV_PART_ITEMS);
     lv_table_set_col_cnt(ui_2_table, 5);
