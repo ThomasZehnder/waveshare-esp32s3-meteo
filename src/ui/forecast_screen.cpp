@@ -37,14 +37,20 @@ void ui_Forecast_screen_init(void)
     // Create table for forecast data
     ui_2_table = lv_table_create(UI_Screens.Forecast_Screen);
     lv_obj_align(ui_2_table, LV_ALIGN_TOP_MID, 0, 40);
-    //set font for table
-    lv_obj_set_style_text_font(ui_2_table, &lv_font_unscii_16 , DEFAULT_SELECTOR);
-    //set background color for table
-    //lv_obj_set_style_bg_color(ui_2_table, lv_color_hex(0x000000), DEFAULT_SELECTOR);
-    //set background color for table cells
+    // set font for table
+    lv_obj_set_style_text_font(ui_2_table, &lv_font_unscii_16, DEFAULT_SELECTOR);
+    // set background color for table cells
     lv_obj_set_style_bg_color(ui_2_table, lv_color_hex(0x000000), LV_PART_ITEMS);
     lv_table_set_col_cnt(ui_2_table, 5);
     lv_table_set_row_cnt(ui_2_table, NUM_FORECAST_DAYS + 1); // +1 for header row
+    // set table with
+    lv_obj_set_width(ui_2_table, 800);
+    // set first colum width
+    lv_table_set_col_width(ui_2_table, 0, 150);
+    lv_table_set_col_width(ui_2_table, 1, (800 - 150) / 4);
+    lv_table_set_col_width(ui_2_table, 2, (800 - 150) / 4);
+    lv_table_set_col_width(ui_2_table, 3, (800 - 150) / 4);
+    lv_table_set_col_width(ui_2_table, 4, (800 - 150) / 4);
 }
 
 void ui_Forcast_screen_update(void)
