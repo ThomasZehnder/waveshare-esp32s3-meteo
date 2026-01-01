@@ -7,11 +7,11 @@ void updateTableWithForecastData(lv_obj_t *table)
 {
     Serial.println("Updating forecast table UI");
     // Set header row
-    lv_table_set_cell_value(table, 0, 0, "Day");
+    lv_table_set_cell_value(table, 0, 0, "Tag");
     lv_table_set_cell_value(table, 0, 1, "Min Temp (°C)");
     lv_table_set_cell_value(table, 0, 2, "Max Temp (°C)");
-    lv_table_set_cell_value(table, 0, 3, "Precipitation (mm)");
-    lv_table_set_cell_value(table, 0, 4, "Wind Speed (km/h)");
+    lv_table_set_cell_value(table, 0, 3, "Regen (mm)");
+    lv_table_set_cell_value(table, 0, 4, "Wind (km/h)");
 
     // Fill table with forecast data
     for (int i = 0; i < NUM_FORECAST_DAYS; i++)
@@ -23,7 +23,7 @@ void updateTableWithForecastData(lv_obj_t *table)
         lv_table_set_cell_value(table, i + 1, 4, String(Asset.forecast.wind_speed_10m_max[i], 2).c_str());
     }
 }
-
+#define VALUECELLWIDTH 140
 void ui_Forecast_screen_init(void)
 {
     UI_Screens.Forecast_Screen = lv_obj_create(NULL);
@@ -43,14 +43,17 @@ void ui_Forecast_screen_init(void)
     lv_obj_set_style_bg_color(ui_2_table, lv_color_hex(0x000000), LV_PART_ITEMS);
     lv_table_set_col_cnt(ui_2_table, 5);
     lv_table_set_row_cnt(ui_2_table, NUM_FORECAST_DAYS + 1); // +1 for header row
-    // set table with
+    // set table with of table
     lv_obj_set_width(ui_2_table, 800);
     // set first colum width
-    lv_table_set_col_width(ui_2_table, 0, 150);
-    lv_table_set_col_width(ui_2_table, 1, (800 - 150) / 4);
-    lv_table_set_col_width(ui_2_table, 2, (800 - 150) / 4);
-    lv_table_set_col_width(ui_2_table, 3, (800 - 150) / 4);
-    lv_table_set_col_width(ui_2_table, 4, (800 - 150) / 4);
+    lv_table_set_col_width(ui_2_table, 0, 800- 4* VALUECELLWIDTH);
+    lv_table_set_col_width(ui_2_table, 1, VALUECELLWIDTH);
+    lv_table_set_col_width(ui_2_table, 2, VALUECELLWIDTH);
+    lv_table_set_col_width(ui_2_table, 3, VALUECELLWIDTH);
+    lv_table_set_col_width(ui_2_table, 4, VALUECELLWIDTH);
+    //set cell margin
+    lv_obj_set_style_pad_all(ui_2_table, 5, LV_PART_ITEMS);
+
 }
 
 void ui_Forcast_screen_update(void)
