@@ -88,7 +88,7 @@ void create_navigation_bar(lv_obj_t *parent)
 {
     create_navigation_button(parent, "HOME", LV_ALIGN_BOTTOM_LEFT, 0, 0, on_nav_bar_Main_Screen_Clicked);
     create_navigation_button(parent, "LOCALS", LV_ALIGN_BOTTOM_LEFT, lv_pct(25), 0, on_nav_bar_Local_Screen_Clicked);
-    create_navigation_button(parent, "FORCAST", LV_ALIGN_BOTTOM_LEFT, lv_pct(50), 0, on_nav_bar_Screen_2_Clicked);
+    create_navigation_button(parent, "FORECAST", LV_ALIGN_BOTTOM_LEFT, lv_pct(50), 0, on_nav_bar_Screen_2_Clicked);
     create_navigation_button(parent, "SERVICE", LV_ALIGN_BOTTOM_LEFT, lv_pct(75), 0, on_nav_bar_Service_Screen_Clicked);
 }
 
@@ -128,6 +128,6 @@ void ui_loop(void)
         ui_Main_screen_update();
         ui_Local_screen_update();
         ui_Service_Screen_update();
-        ui_Forcast_screen_update();
+        ui_Forecast_screen_update();
     }
 }

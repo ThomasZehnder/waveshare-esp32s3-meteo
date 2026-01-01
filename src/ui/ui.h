@@ -44,7 +44,7 @@ void ui_Main_screen_update(void);
 void ui_Local_screen_init(void);
 void ui_Local_screen_update(void);
 void ui_Forecast_screen_init(void);
-void ui_Forcast_screen_update(void);
+void ui_Forecast_screen_update(void);
 
 // forward
 const lv_style_selector_t DEFAULT_SELECTOR = (lv_style_selector_t)(LV_PART_MAIN | LV_STATE_DEFAULT);

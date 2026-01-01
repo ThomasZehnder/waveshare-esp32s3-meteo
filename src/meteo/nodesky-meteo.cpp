@@ -39,7 +39,7 @@ void storeMeteo(meteo_t &meteo, DynamicJsonDocument &doc)
     }
 }
 
-void storeForcastMeteo(DynamicJsonDocument &doc)
+void storeForecastMeteo(DynamicJsonDocument &doc)
 {
     // Implement storing forecast data if needed
     /*{
@@ -146,7 +146,7 @@ void meteo_loop()
                 else if (getState == 2)
                 {
                     // Handle Open-Meteo data if needed
-                    storeForcastMeteo(doc);
+                    storeForecastMeteo(doc);
                     Serial.println("Open-Meteo data received.");
                 }
 

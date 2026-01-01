@@ -30,7 +30,7 @@ void ui_Forecast_screen_init(void)
     ui_create_main_elements(UI_Screens.Forecast_Screen);
 
     lv_obj_t *ui_2_label1 = lv_label_create(UI_Screens.Forecast_Screen);
-    lv_label_set_text(ui_2_label1, "Forcast for 9500-Wil");
+    lv_label_set_text(ui_2_label1, "Forecast 9500-Wil");
     lv_obj_align(ui_2_label1, LV_ALIGN_TOP_LEFT, 0, 0);
     lv_obj_set_style_text_font(ui_2_label1, &lv_font_montserrat_30, DEFAULT_SELECTOR);
 
@@ -38,7 +38,7 @@ void ui_Forecast_screen_init(void)
     ui_2_table = lv_table_create(UI_Screens.Forecast_Screen);
     lv_obj_align(ui_2_table, LV_ALIGN_TOP_MID, 0, 40);
     // set font for table
-    lv_obj_set_style_text_font(ui_2_table, &lv_font_montserrat_16, DEFAULT_SELECTOR);
+    lv_obj_set_style_text_font(ui_2_table, &lv_font_montserrat_30, DEFAULT_SELECTOR);
     // set background color for table cells
     lv_obj_set_style_bg_color(ui_2_table, lv_color_hex(0x000000), LV_PART_ITEMS);
     lv_table_set_col_cnt(ui_2_table, 5);
@@ -56,7 +56,7 @@ void ui_Forecast_screen_init(void)
     lv_obj_set_style_pad_all(ui_2_table, 5, LV_PART_ITEMS);
 }
 
-void ui_Forcast_screen_update(void)
+void ui_Forecast_screen_update(void)
 {
     // Update slider value label
     if (ui_2_table != NULL)

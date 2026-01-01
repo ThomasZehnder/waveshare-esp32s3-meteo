@@ -13,7 +13,7 @@ void getMeteoString(char *buf, size_t bufsize, const char* prefix, const meteo_t
     snprintf(buf, bufsize, "%s DeviceName: %s, Temp: %.2f, Hum: %.2f", prefix, meteo.deviceName.c_str(), meteo.temperature, meteo.humidity);
 }
 
-void getForcastString(char *buf, size_t bufsize, const forecast_t &forecast)
+void getForecastString(char *buf, size_t bufsize, const forecast_t &forecast)
 {
     snprintf(buf, bufsize, "Forecast Today in Wil Temp Min: %.2f, Max: %.2f", forecast.temperature_2m_min[0], forecast.temperature_2m_max[0]);
 }
@@ -45,7 +45,7 @@ void ui_Service_Screen_init(void)
     lv_label_set_text(meteo_inside_label, buf);
     lv_obj_align(meteo_inside_label, LV_ALIGN_TOP_LEFT, 0, 60);    
 
-    //show forcast status
+    //show forecast status
     meteo_forecast_label = lv_label_create(UI_Screens.Service_Screen);   
     lv_label_set_text(meteo_forecast_label, "Forecast: --");
     lv_obj_align(meteo_forecast_label, LV_ALIGN_TOP_LEFT, 0, 80);  
@@ -60,7 +60,7 @@ void ui_Service_Screen_update(void)
     lv_label_set_text(meteo_outside_label, buf);
     getMeteoString(buf, sizeof(buf), "Meteo Inside" , Asset.inside);
     lv_label_set_text(meteo_inside_label, buf);
-    getForcastString(buf, sizeof(buf), Asset.forecast);
+    getForecastString(buf, sizeof(buf), Asset.forecast);
     lv_label_set_text(meteo_forecast_label, buf);
 
 }   
