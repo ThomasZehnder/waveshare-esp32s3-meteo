@@ -171,27 +171,23 @@ void ui_Main_screen_init(void)
 void ui_Main_screen_update(void)
 {
     // Update counter labels
-    if (Asset.UpdateUI_Screen == true)
-    {
-        Asset.UpdateUI_Screen = false;
 
-        if (ui_0_counter_label0 != NULL)
-        {
-            char buf[32];
-            getText4Count(0, Asset.clickCount1, buf, sizeof(buf));
-            lv_label_set_text(ui_0_counter_label0, buf);
-        }
-        if (ui_0_counter_label1 != NULL)
-        {
-            char buf[32];
-            getText4Count(1, Asset.clickCount2, buf, sizeof(buf));
-            lv_label_set_text(ui_0_counter_label1, buf);
-        }
-        if (ui_0_temperature_label != NULL)
-        {
-            char buf[32];
-            snprintf(buf, sizeof(buf), "Office Thomas: %.1f °C", Asset.room1_settemperature);
-            lv_label_set_text(ui_0_temperature_label, buf);
-        }
+    if (ui_0_counter_label0 != NULL)
+    {
+        char buf[32];
+        getText4Count(0, Asset.clickCount1, buf, sizeof(buf));
+        lv_label_set_text(ui_0_counter_label0, buf);
+    }
+    if (ui_0_counter_label1 != NULL)
+    {
+        char buf[32];
+        getText4Count(1, Asset.clickCount2, buf, sizeof(buf));
+        lv_label_set_text(ui_0_counter_label1, buf);
+    }
+    if (ui_0_temperature_label != NULL)
+    {
+        char buf[32];
+        snprintf(buf, sizeof(buf), "Office Thomas: %.1f °C", Asset.room1_settemperature);
+        lv_label_set_text(ui_0_temperature_label, buf);
     }
 }

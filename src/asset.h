@@ -1,10 +1,24 @@
 #pragma once
 
+#include "Arduino.h"
+
+#define NUM_FORECAST_DAYS 5 
+
 struct meteo_t
 {
     String deviceName = "???";
     float temperature = -111.0;
     float humidity = -111.0;
+};
+
+struct forecast_t
+{
+
+    float temperature_2m_min[NUM_FORECAST_DAYS] = {-111.0, -111.0, -111.0, -111.0, -111.0};
+    float temperature_2m_max[NUM_FORECAST_DAYS] = {-111.0, -111.0, -111.0, -111.0, -111.0};
+    float precipitation_sum[NUM_FORECAST_DAYS] = {-111.0, -111.0, -111.0, -111.0, -111.0};
+    float wind_speed_10m_max[NUM_FORECAST_DAYS] = {-111.0, -111.0, -111.0, -111.0, -111.0};
+    String time[NUM_FORECAST_DAYS] = {"", "", "", "", ""};
 };
 
 struct asset_t
@@ -26,6 +40,8 @@ struct asset_t
     // weather data
     meteo_t outside;
     meteo_t inside;
+
+    forecast_t forecast;
 
     bool UpdateUI_Screen = false;
 };
