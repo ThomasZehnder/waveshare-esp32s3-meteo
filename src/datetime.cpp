@@ -4,11 +4,12 @@
 
 const char* ntpServer1 = "pool.ntp.org";
 const char* ntpServer2 = "time.nist.gov";
-const long gmtOffset_sec = 0;  // UTC
-const int daylightOffset_sec = 0;
 
 void setupNTP() {
-    configTime(gmtOffset_sec, daylightOffset_sec, ntpServer1, ntpServer2);
+    // Set timezone to Berlin (CET/CEST with DST)
+    setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
+    tzset();
+    configTime(0, 0, ntpServer1, ntpServer2);
 }
 
 void updateDatetime() {
