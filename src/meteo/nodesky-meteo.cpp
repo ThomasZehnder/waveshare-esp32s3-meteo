@@ -13,7 +13,7 @@ static const char *URL_INSIDE = NODESKY_URL NODESKY_INSIDE_DEVICE_ID;
 static const char *OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast?latitude=47.4615&longitude=9.0455&timezone=auto&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,wind_speed_10m_max&forecast_days=";
 
 
-static int getState = 2; // 0: outside, 1: inside, 2: open-meteo
+static int getState = 0; // 0: outside, 1: inside, 2: open-meteo
 static uint32_t last_fetch_time = 0;
 static uint32_t fetch_intervall = 500;
 static const uint32_t FETCH_INTERVAL = 10000; // 10 seconds
@@ -101,7 +101,6 @@ void meteo_loop()
         last_fetch_time = now;
 
         String URL = "";
-        getState = (getState + 1) % 3;
         if (getState == 0)
         {
             URL = String(URL_OUTSIDE);
@@ -162,5 +161,6 @@ void meteo_loop()
         }
 
         http.end();
+        getState = (getState + 1) % 3;
     }
 }

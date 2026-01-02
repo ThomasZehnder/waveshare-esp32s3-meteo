@@ -5,6 +5,7 @@
 #include "wlan/wlan.h"
 #include "wlan/mqtt.h"
 #include "meteo/nodesky-meteo.h"
+#include "datetime.h"
 #include "asset.h"
 
 asset_t Asset;
@@ -17,6 +18,8 @@ void setup()
     ui_init();
 
     wlan_init(); //WIFI and MQTT
+
+    setupNTP(); // NTP time sync
 
     meteo_init();
 
@@ -39,6 +42,7 @@ void loop()
         lv_timer_handler();
         wlan_loop();
         ui_loop();
+        updateDatetime(); // Update datetime
         last_task_time = now;
     }
 
