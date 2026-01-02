@@ -15,7 +15,7 @@ static const char *OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast?lati
 
 static int getState = 0; // 0: outside, 1: inside, 2: open-meteo
 static uint32_t last_fetch_time = 0;
-static uint32_t fetch_intervall = 500;
+static uint32_t fetch_intervall = 1000;
 static const uint32_t FETCH_INTERVAL = 10000; // 10 seconds
 static bool first_run = true;
 

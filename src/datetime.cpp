@@ -14,7 +14,7 @@ void updateDatetime() {
     struct tm timeinfo;
     if (!getLocalTime(&timeinfo)) {
         Serial.println("Failed to obtain time");
-        Asset.datetime.formatted = "error to get time";
+        Asset.datetime.formatted = "--.--.---- error";
         return;
     }
 

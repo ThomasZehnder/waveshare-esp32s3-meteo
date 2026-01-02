@@ -2,6 +2,7 @@
 #include <string.h>
 #include <Arduino.h>
 #include "asset.h"
+#include "datetime.h"
 
 lv_obj_t *connect_status_label;
 lv_obj_t *meteo_outside_label; 
@@ -68,6 +69,8 @@ void ui_Service_Screen_update(void)
     lv_label_set_text(meteo_inside_label, buf);
     getForecastString(buf, sizeof(buf), Asset.forecast);
     lv_label_set_text(meteo_forecast_label, buf);
+
+    updateDatetime();
     lv_label_set_text_fmt(datetime_label, "Datetime: %s", Asset.datetime.formatted.c_str());
 
 }   
