@@ -2,20 +2,19 @@
 #include "asset.h"
 #include <time.h>
 
-const char* ntpServer1 = "pool.ntp.org";
-const char* ntpServer2 = "time.nist.gov";
+const char* ntpServer1 = "ch.pool.ntp.org";
+const char* ntpServer2 = "time.zeit.ch";
 
 void setupNTP() {
-    // Set timezone to Berlin (CET/CEST with DST)
-    setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
-    tzset();
-    configTime(0, 0, ntpServer1, ntpServer2);
+    // Set timezone to Zürich (CET/CEST with DST)
+    configTzTime("CET-1CEST,M3.5.0,M10.5.0/3", ntpServer1, ntpServer2);
 }
 
 void updateDatetime() {
     struct tm timeinfo;
     if (!getLocalTime(&timeinfo)) {
         Serial.println("Failed to obtain time");
+        Asset.datetime.formatted = "error to get time";
         return;
     }
 
