@@ -62,6 +62,7 @@ void board_init()
         while (1) delay(1000);
     }
 
+    /*
         // Reinitialize I2C after display setup to fix GT911 communication
     Serial.println("🔄 Reinitializing I2C for GT911 after display setup...");
     Wire.end();
@@ -77,6 +78,7 @@ void board_init()
     } else {
         Serial.printf("❌ GT911 not responding after reinit! Error=%d\n", error);
     }
+        */
 
     // Initialize the GT911 now that I2C has been reconfigured
     bool touch_ok = touch_init(LCD_H_RES, LCD_V_RES);
