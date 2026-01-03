@@ -5,7 +5,7 @@
 #include "asset.h"
 #include "credentials.h"
 
-static int getState = 0;
+
 
 static const char *URL_OUTSIDE = NODESKY_URL NODESKY_OUTSIDE_DEVICE_ID;
 static const char *URL_INSIDE = NODESKY_URL NODESKY_INSIDE_DEVICE_ID;
@@ -13,7 +13,9 @@ static const char *URL_INSIDE = NODESKY_URL NODESKY_INSIDE_DEVICE_ID;
 static const char *OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast?latitude=47.4615&longitude=9.0455&timezone=auto&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,wind_speed_10m_max&forecast_days=";
 
 
+static int getState = 0; // 0: outside, 1: inside, 2: open-meteo
 static uint32_t last_fetch_time = 0;
+static uint32_t fetch_intervall = 1000;
 static const uint32_t FETCH_INTERVAL = 10000; // 10 seconds
 static bool first_run = true;
 
@@ -93,13 +95,12 @@ void meteo_init()
 void meteo_loop()
 {
     uint32_t now = millis();
-    if (first_run || now - last_fetch_time >= FETCH_INTERVAL)
+    if (first_run || now - last_fetch_time >= fetch_intervall)
     {
         first_run = false;
         last_fetch_time = now;
 
-        String URL = String(URL_OUTSIDE);
-        getState = (getState + 1) % 3;
+        String URL = "";
         if (getState == 0)
         {
             URL = String(URL_OUTSIDE);
@@ -111,6 +112,7 @@ void meteo_loop()
         else if (getState == 2)
         {
             URL = String(OPEN_METEO_URL) + String(NUM_FORECAST_DAYS);
+            fetch_intervall = FETCH_INTERVAL; // reset to normal interval after first two quick fetches
         }
         Serial.println("HTTP Fetch: " + URL);
 
@@ -155,8 +157,10 @@ void meteo_loop()
         else
         {
             Serial.printf("HTTP GET failed, error: %s\n", http.errorToString(httpCode).c_str());
+            getState = 0; // reset state machine on error
         }
 
         http.end();
+        getState = (getState + 1) % 3;
     }
 }

@@ -5,21 +5,33 @@
 #include "wlan/wlan.h"
 #include "wlan/mqtt.h"
 #include "meteo/nodesky-meteo.h"
+#include "datetime.h"
 #include "asset.h"
 
 asset_t Asset;
 
 void setup()
 {
+    unsigned long start = millis();
+    Serial.printf("Setup started at %lu ms\n", start);
+
     board_init();
+    Serial.printf("Board init done at %lu ms\n", millis() - start);
 
     // Initialize LVGL screens
     ui_init();
+    Serial.printf("UI init done at %lu ms\n", millis() - start);
 
     wlan_init(); //WIFI and MQTT
+    Serial.printf("WLAN init done at %lu ms\n", millis() - start);
+
+    setupNTP(); // NTP time sync
+    Serial.printf("NTP setup done at %lu ms\n", millis() - start);
 
     meteo_init();
+    Serial.printf("Meteo init done at %lu ms\n", millis() - start);
 
+    Serial.printf("Total setup time: %lu ms\n", millis() - start);
     Serial.println("Setup complete!");
 }
 
@@ -39,6 +51,7 @@ void loop()
         lv_timer_handler();
         wlan_loop();
         ui_loop();
+        updateDatetime(); // Update datetime
         last_task_time = now;
     }
 

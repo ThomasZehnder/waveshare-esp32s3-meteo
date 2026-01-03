@@ -21,6 +21,17 @@ struct forecast_t
     String time[NUM_FORECAST_DAYS] = {"", "", "", "", ""};
 };
 
+struct datetime_t
+{
+    int year = 0;
+    int month = 0;
+    int day = 0;
+    int hour = 0;
+    int minute = 0;
+    int second = 0;
+    String formatted = "--.--.---- --:--:--";
+};
+
 struct asset_t
 {
     String deviceId = "ESP32S3_Meteo_001";
@@ -42,6 +53,9 @@ struct asset_t
     meteo_t inside;
 
     forecast_t forecast;
+
+    // datetime
+    datetime_t datetime;
 
     bool UpdateUI_Screen = false;
 };

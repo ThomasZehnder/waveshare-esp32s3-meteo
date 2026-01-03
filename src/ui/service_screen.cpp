@@ -2,11 +2,13 @@
 #include <string.h>
 #include <Arduino.h>
 #include "asset.h"
+#include "datetime.h"
 
 lv_obj_t *connect_status_label;
 lv_obj_t *meteo_outside_label; 
 lv_obj_t *meteo_inside_label; 
 lv_obj_t *meteo_forecast_label;
+lv_obj_t *datetime_label;
 
 void getMeteoString(char *buf, size_t bufsize, const char* prefix, const meteo_t &meteo)
 {
@@ -50,6 +52,11 @@ void ui_Service_Screen_init(void)
     lv_label_set_text(meteo_forecast_label, "Forecast: --");
     lv_obj_align(meteo_forecast_label, LV_ALIGN_TOP_LEFT, 0, 80);  
 
+    //show datetime
+    datetime_label = lv_label_create(UI_Screens.Service_Screen);   
+    lv_label_set_text_fmt(datetime_label, "Datetime: %s", Asset.datetime.formatted.c_str());
+    lv_obj_align(datetime_label, LV_ALIGN_TOP_LEFT, 0, 100);
+
 }
 
 void ui_Service_Screen_update(void)
@@ -62,5 +69,8 @@ void ui_Service_Screen_update(void)
     lv_label_set_text(meteo_inside_label, buf);
     getForecastString(buf, sizeof(buf), Asset.forecast);
     lv_label_set_text(meteo_forecast_label, buf);
+
+    updateDatetime();
+    lv_label_set_text_fmt(datetime_label, "Datetime: %s", Asset.datetime.formatted.c_str());
 
 }   

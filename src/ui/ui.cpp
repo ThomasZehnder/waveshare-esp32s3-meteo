@@ -60,10 +60,6 @@ ui_screen_def_t UI_Screens;
 lv_obj_t *nav_bar;
 
 /////////////////////
-lv_color_t lv_color_red(void)
-{
-    return lv_color_make(0xFF, 0x00, 0x00);
-}
 
 void create_navigation_button(lv_obj_t *parent, const char *label_text, lv_align_t align, lv_coord_t x_ofs, lv_coord_t y_ofs, lv_event_cb_t event_cb)
 {
