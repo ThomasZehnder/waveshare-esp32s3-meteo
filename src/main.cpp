@@ -22,7 +22,7 @@ void setup()
     ui_init();
     Serial.printf("UI init done at %lu ms\n", millis() - start);
 
-    wlan_init(); //WIFI and MQTT
+    wlan_init(); // WIFI and MQTT
     Serial.printf("WLAN init done at %lu ms\n", millis() - start);
 
     setupNTP(); // NTP time sync

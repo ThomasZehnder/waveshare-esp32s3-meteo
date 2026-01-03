@@ -143,10 +143,17 @@ void fetchTask(void *pvParameters) {
 
 void meteo_init()
 {
-    xTaskCreate(fetchTask, "FetchTask", 8192, NULL, 1, NULL);
 }
 
 void meteo_loop()
 {
-    // Fetching is now handled asynchronously in a separate task
+    //start fetchTask in its own FreeRTOS task 2s after meteo_init  
+
+    static bool taskStarted = false;
+    static uint32_t startTime = millis();
+
+    if (!taskStarted && millis() - startTime > 2000) {
+        xTaskCreate(fetchTask, "NodeskyTask", 8192, NULL, 1, NULL);
+        taskStarted = true;
+    }
 }
