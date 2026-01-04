@@ -22,7 +22,7 @@ void setup()
     ui_init();
     Serial.printf("UI init done at %lu ms\n", millis() - start);
 
-    wlan_init(); //WIFI and MQTT
+    wlan_init(); // WIFI and MQTT
     Serial.printf("WLAN init done at %lu ms\n", millis() - start);
 
     setupNTP(); // NTP time sync
@@ -48,7 +48,6 @@ void loop()
 
     // Schedule tasks every 500ms
     if (now - last_task_time >= 500) {
-        lv_timer_handler();
         wlan_loop();
         ui_loop();
         updateDatetime(); // Update datetime
