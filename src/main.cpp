@@ -48,7 +48,6 @@ void loop()
 
     // Schedule tasks every 500ms
     if (now - last_task_time >= 500) {
-        lv_timer_handler();
         wlan_loop();
         ui_loop();
         updateDatetime(); // Update datetime

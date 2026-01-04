@@ -4,8 +4,6 @@
 #include <ArduinoJson.h>
 #include "asset.h"
 #include "credentials.h"
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
 
 
 
@@ -13,6 +11,13 @@ static const char *URL_OUTSIDE = NODESKY_URL NODESKY_OUTSIDE_DEVICE_ID;
 static const char *URL_INSIDE = NODESKY_URL NODESKY_INSIDE_DEVICE_ID;
 
 static const char *OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast?latitude=47.4615&longitude=9.0455&timezone=auto&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,wind_speed_10m_max&forecast_days=";
+
+
+static int getState = 0; // 0: outside, 1: inside, 2: open-meteo
+static uint32_t last_fetch_time = 0;
+static uint32_t fetch_intervall = 1000;
+static const uint32_t FETCH_INTERVAL = 10000; // 10 seconds
+static bool first_run = true;
 
 void storeMeteo(meteo_t &meteo, DynamicJsonDocument &doc)
 {
@@ -81,79 +86,81 @@ void storeForecastMeteo(DynamicJsonDocument &doc)
     Asset.UpdateUI_Screen = true;
 }
 
-void fetchTask(void *pvParameters) {
-    uint32_t last_fetch_time = 0;
-    uint32_t fetch_intervall = 1000;
-    const uint32_t FETCH_INTERVAL = 10000;
-    int getState = 0;
-    bool first_run = true;
-
-    while (true) {
-        uint32_t now = millis();
-        if ((first_run || now - last_fetch_time >= fetch_intervall) && WiFi.isConnected()) {
-            first_run = false;
-            last_fetch_time = now;
-
-            String URL = "";
-            if (getState == 0) {
-                URL = String(URL_OUTSIDE);
-            } else if (getState == 1) {
-                URL = String(URL_INSIDE);
-            } else if (getState == 2) {
-                URL = String(OPEN_METEO_URL) + String(NUM_FORECAST_DAYS);
-                fetch_intervall = FETCH_INTERVAL;
-            }
-            Serial.println("HTTP Fetch: " + URL);
-
-            HTTPClient http;
-            http.begin(URL);
-            int httpCode = http.GET();
-
-            if (httpCode > 0) {
-                String payload = http.getString();
-                Serial.println("HTTP Response: " + payload);
-
-                DynamicJsonDocument doc(2048);
-                DeserializationError error = deserializeJson(doc, payload);
-
-                if (!error) {
-                    if (getState == 0) {
-                        storeMeteo(Asset.outside, doc);
-                    } else if (getState == 1) {
-                        storeMeteo(Asset.inside, doc);
-                    } else if (getState == 2) {
-                        storeForecastMeteo(doc);
-                        Serial.println("Open-Meteo data received.");
-                    }
-                } else {
-                    Serial.print("JSON parse error: ");
-                    Serial.println(error.c_str());
-                }
-            } else {
-                Serial.printf("HTTP GET failed, error: %s\n", http.errorToString(httpCode).c_str());
-                getState = 0;
-            }
-
-            http.end();
-            getState = (getState + 1) % 3;
-        }
-        vTaskDelay(pdMS_TO_TICKS(1000)); // Small delay of 1000ms to prevent watchdog resets
-    }
-}
-
 void meteo_init()
 {
+    // Initialization if needed
+    first_run = true;
 }
 
 void meteo_loop()
 {
-    //start fetchTask in its own FreeRTOS task 2s after meteo_init  
+    uint32_t now = millis();
+    if (first_run || now - last_fetch_time >= fetch_intervall)
+    {
+        first_run = false;
+        last_fetch_time = now;
 
-    static bool taskStarted = false;
-    static uint32_t startTime = millis();
+        String URL = "";
+        if (getState == 0)
+        {
+            URL = String(URL_OUTSIDE);
+        }
+        else if (getState == 1)
+        {
+            URL = String(URL_INSIDE);
+        }
+        else if (getState == 2)
+        {
+            URL = String(OPEN_METEO_URL) + String(NUM_FORECAST_DAYS);
+            fetch_intervall = FETCH_INTERVAL; // reset to normal interval after first two quick fetches
+        }
+        Serial.println("HTTP Fetch: " + URL);
 
-    if (!taskStarted && millis() - startTime > 2000) {
-        xTaskCreate(fetchTask, "NodeskyTask", 8192, NULL, 1, NULL);
-        taskStarted = true;
+        HTTPClient http;
+        http.begin(URL);
+        int httpCode = http.GET();
+
+        if (httpCode > 0)
+        {
+            String payload = http.getString();
+            Serial.println("HTTP Response: " + payload);
+
+            // Parse JSON
+            DynamicJsonDocument doc(2048);
+            DeserializationError error = deserializeJson(doc, payload);
+
+            if (error)
+            {
+                Serial.print("JSON parse error: ");
+                Serial.println(error.c_str());
+            }
+            else
+            {
+
+                if (getState == 0)
+                {
+                    storeMeteo(Asset.outside, doc);
+                }
+                else if (getState == 1)
+                {
+                    storeMeteo(Asset.inside, doc);
+                }
+                else if (getState == 2)
+                {
+                    // Handle Open-Meteo data if needed
+                    storeForecastMeteo(doc);
+                    Serial.println("Open-Meteo data received.");
+                }
+
+            }
+        }
+        else
+        {
+            Serial.printf("HTTP GET failed, error: %s\n", http.errorToString(httpCode).c_str());
+            getState = 0; // reset state machine on error
+        }
+
+        http.end();
+        getState = (getState + 1) % 3;
     }
 }
