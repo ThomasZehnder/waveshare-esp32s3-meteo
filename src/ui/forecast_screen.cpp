@@ -1,5 +1,6 @@
 #include "ui.h"
 #include <Arduino.h>
+#include "credentials.h"
 
 lv_obj_t *ui_2_table;
 
@@ -30,7 +31,12 @@ void ui_Forecast_screen_init(void)
     ui_create_main_elements(UI_Screens.Forecast_Screen);
 
     lv_obj_t *ui_2_label1 = lv_label_create(UI_Screens.Forecast_Screen);
-    lv_label_set_text(ui_2_label1, "Forecast 9500-Wil");
+    #ifdef PONTRESINA
+        lv_label_set_text(ui_2_label1, "Forecast Pontresina");
+    #else
+        lv_label_set_text(ui_2_label1, "Forecast 9500-Wil");
+    #endif
+    
     lv_obj_align(ui_2_label1, LV_ALIGN_TOP_LEFT, 0, 0);
     lv_obj_set_style_text_font(ui_2_label1, &lv_font_montserrat_30, DEFAULT_SELECTOR);
 

@@ -10,8 +10,13 @@
 static const char *URL_OUTSIDE = NODESKY_URL NODESKY_OUTSIDE_DEVICE_ID;
 static const char *URL_INSIDE = NODESKY_URL NODESKY_INSIDE_DEVICE_ID;
 
+//pontresina
+#ifdef PONTRESINA   
+static const char *OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast?latitude=46.5&longitude=9.9&timezone=auto&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,wind_speed_10m_max&forecast_days=";
+#else
+//wil 
 static const char *OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast?latitude=47.4615&longitude=9.0455&timezone=auto&daily=temperature_2m_min,temperature_2m_max,precipitation_sum,wind_speed_10m_max&forecast_days=";
-
+#endif
 
 static int getState = 0; // 0: outside, 1: inside, 2: open-meteo
 static uint32_t last_fetch_time = 0;
@@ -94,6 +99,11 @@ void meteo_init()
 
 void meteo_loop()
 {
+    if (!WiFi.isConnected())
+    {
+        return; // Skip if not connected
+    }   
+
     uint32_t now = millis();
     if (first_run || now - last_fetch_time >= fetch_intervall)
     {
